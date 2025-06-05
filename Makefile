@@ -6,21 +6,24 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/04 08:43:17 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/05 09:22:03 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Werror -Wextra 
+LFLAGS = -ldl -lglfw -lm -lmlx42 -pthread
 RM = rm -f
 OBJS = $(SRCS:.c=.o)
 SRCS =	ft_main.c \
+		ft_printf_utils.c \
+		ft_printf.c \
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 clean:
 	$(RM) $(OBJS)
