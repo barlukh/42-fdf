@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 11:41:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:55:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,15 +164,29 @@ char	*ft_strchr(const char *s, int c);
 /** Concatenates two strings using dynamic memory allocation.
  * @param buf String in the buffer from the most recent read call.
  * @param var Struct storing all helper variables.
- * @return Pointer to the new string, 'NULL' if the allocation fails.
+ * @return New string, 'NULL' if the allocation fails.
  */
 char	*ft_strjoin(char *buf, t_struct *var);
 
+/** Calculates the length of a string.
+ * @param s String to calculate the length of.
+ * @return Number of bytes in the passed string.
+ */
+size_t	ft_strlen(const char *s);
+
 /** Creates a substring using dynamic memory allocation.
- * @param s Pointer to the source string for the substring.
+ * @param s Source string for the substring.
+ * @param start Starting index.
  * @param len Length of the substring.
  * @return New substring, 'NULL' if the allocation fails.
  */
-char	*ft_substr(char **s, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+/** Creates a substring using dynamic memory allocation (modified for gnl).
+ * @param s Source string for the substring.
+ * @param len Length of the substring.
+ * @return New substring, 'NULL' if the allocation fails.
+ */
+char	*ft_substr_gnl(char **s, size_t len);
 
 #endif
