@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:44:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 11:50:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:06:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,26 @@ size_t	ft_strlen(const char *s)
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	s_len;
-	size_t	start_i;
-	size_t	ss_len;
-	char	*ss;
+	size_t	i;
+	size_t	substr_len;
+	char	*substr;
 
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
-	start_i = (size_t)start;
-	if (start_i >= s_len)
+	i = (size_t)start;
+	if (i >= s_len)
 		return (ft_strdup(""));
-	else if (s_len - start_i >= len)
-		ss_len = len;
+	else if (s_len - i >= len)
+		substr_len = len;
 	else
-		ss_len = s_len - start_i;
-	ss = malloc(sizeof(char) * (ss_len + 1));
-	if (!ss)
+		substr_len = s_len - i;
+	substr = malloc(sizeof(char) * (substr_len + 1));
+	if (!substr)
 		return (NULL);
-	ft_memcpy(ss, s + start_i, ss_len);
-	ss[ss_len] = '\0';
-	return (ss);
+	ft_memcpy(substr, s + i, substr_len);
+	substr[substr_len] = '\0';
+	return (substr);
 }
 
 // Duplicates a string using dynamic memory allocation
