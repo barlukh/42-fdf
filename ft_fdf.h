@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/05 18:05:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:41:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 //------------------------------------------------------------------------------
 // Macro Definitions
 //------------------------------------------------------------------------------
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 # define BASE10 10
 # define BASE16 16
@@ -51,6 +55,20 @@ typedef struct s_config
 	int32_t	monitor_height;
 }	t_config;
 
+/** Holds variables related to the ft_get_next_line function.
+ * @param cache Helper string allowing continuous read from the buffer.
+ * @param br Character signaling break of the line (either '\n' or '\0').
+ * @param read_bytes Return value from the read() function.
+ * @param new_line Allocated line to return.
+ */
+typedef struct s_struct
+{
+	char	*cache;
+	char	*br;
+	ssize_t	read_bytes;
+	char	*new_line;
+}	t_struct;
+
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
@@ -74,6 +92,28 @@ void	ft_config_window(mlx_t *mlx, t_config *cfg);
  * @return Errno.
  */
 int		ft_error(mlx_t *mlx);
+
+/** Reads and returns a line from a file pointed to by a file descriptor.
+ * @param fd File descriptor to read data from.
+ * @return Read line (string).
+ */
+char	*ft_get_next_line(int fd);
+
+/** Checks for a newline character or end of file, reads into the buffer.
+ * @param fd File descriptor to read data from.
+ * @param buf Pointer to the buffer to fill by the read call.
+ * @param var Struct storing all helper variables.
+ * @return Pointer to the newline or end of file, 'NULL' on error.
+ */
+char	*ft_line_read(int fd, char **buf, t_struct *var);
+
+/** Copies bytes from one memory area to another; the areas must not overlap.
+ * @param dest Pointer to the destination memory area.
+ * @param src Pointer to the source memory area.
+ * @param n Number of bytes to copy.
+ * @return Pointer to the destination memory area.
+ */
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 /** Writes a string with format specifiers into the standard output.
  * @param s String to write.
@@ -113,5 +153,26 @@ int		ft_putnbr_u(unsigned int n, unsigned int base, const char *style);
  * @return Number of characters written, -1 on error.
  */
 int		ft_putstr(const char *s);
+
+/** Scans a string for the first instance of 'c'.
+ * @param s String to search.
+ * @param c Character to search for, passed as an int.
+ * @return Pointer to the matching location, 'NULL' if no match.
+ */
+char	*ft_strchr(const char *s, int c);
+
+/** Concatenates two strings using dynamic memory allocation.
+ * @param buf String in the buffer from the most recent read call.
+ * @param var Struct storing all helper variables.
+ * @return Pointer to the new string, 'NULL' if the allocation fails.
+ */
+char	*ft_strjoin(char *buf, t_struct *var);
+
+/** Creates a substring using dynamic memory allocation.
+ * @param s Pointer to the source string for the substring.
+ * @param len Length of the substring.
+ * @return New substring, 'NULL' if the allocation fails.
+ */
+char	*ft_substr(char **s, size_t len);
 
 #endif
