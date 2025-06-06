@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 11:55:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 13:44:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <limits.h>
 # include <MLX42.h>
 # include <stdarg.h>
-# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -99,14 +98,6 @@ int		ft_error(mlx_t *mlx);
  */
 char	*ft_get_next_line(int fd);
 
-/** Checks for a newline character or end of file, reads into the buffer.
- * @param fd File descriptor to read data from.
- * @param buf Pointer to the buffer to fill by the read call.
- * @param var Struct storing all helper variables.
- * @return Pointer to the newline or end of file, 'NULL' on error.
- */
-char	*ft_line_read(int fd, char **buf, t_struct *var);
-
 /** Copies bytes from one memory area to another; the areas must not overlap.
  * @param dest Pointer to the destination memory area.
  * @param src Pointer to the source memory area.
@@ -161,13 +152,6 @@ int		ft_putstr(const char *s);
  */
 char	*ft_strchr(const char *s, int c);
 
-/** Concatenates two strings using dynamic memory allocation.
- * @param buf String in the buffer from the most recent read call.
- * @param var Struct storing all helper variables.
- * @return New string, 'NULL' if the allocation fails.
- */
-char	*ft_strjoin(char *buf, t_struct *var);
-
 /** Calculates the length of a string.
  * @param s String to calculate the length of.
  * @return Number of bytes in the passed string.
@@ -181,12 +165,5 @@ size_t	ft_strlen(const char *s);
  * @return New substring, 'NULL' if the allocation fails.
  */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-/** Creates a substring using dynamic memory allocation (modified for gnl).
- * @param s Source string for the substring.
- * @param len Length of the substring.
- * @return New substring, 'NULL' if the allocation fails.
- */
-char	*ft_substr_gnl(char **s, size_t len);
 
 #endif

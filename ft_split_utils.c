@@ -1,18 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_utils.c                                   :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:44:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 13:06:41 by bgazur           ###   ########.fr       */
+/*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
+/*   Updated: 2025/06/06 13:51:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static char	*ft_strdup(const char *s);
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*ptrd;
+	const unsigned char	*ptrs;
+	size_t				i;
+
+	ptrd = (unsigned char *)dest;
+	ptrs = (const unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		ptrd[i] = ptrs[i];
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((unsigned char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
+}
 
 size_t	ft_strlen(const char *s)
 {

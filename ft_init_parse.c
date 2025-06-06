@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_parse_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 13:34:02 by bgazur           ###   ########.fr       */
+/*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
+/*   Updated: 2025/06/06 13:35:01 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-int	main(int argc, char **argv)
-{
-	mlx_t		*mlx;
-	t_config	cfg;
-
-	ft_parse_input(argc, argv);
-	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-	if (!mlx)
-		return (ft_error(mlx));
-	ft_config_window(mlx, &cfg);
-	mlx_key_hook(mlx, ft_key_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
-}
