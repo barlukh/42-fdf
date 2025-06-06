@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 15:33:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:55:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param);
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
-/** Parses command line arguments checking for invalid input.
+/** Parses command line arguments.
  * @param argc Argument count.
  * @param argv Argument vector.
  * @return 0 on SUCCESS, 1 on FAILURE.

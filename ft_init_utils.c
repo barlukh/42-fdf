@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 15:34:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 16:45:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_config_window(mlx_t *mlx, t_config *cfg)
 int	ft_exit(mlx_t *mlx)
 {
 	ft_printf("%s\n", mlx_strerror(mlx_errno));
-	if (mlx_errno != MLX_INVARGS)
+	if (mlx_errno != MLX_INVARGS && mlx_errno != MLX_INVEXT)
 		mlx_terminate(mlx);
 	return (mlx_errno);
 }
