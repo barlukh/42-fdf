@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_config.c                                        :+:      :+:    :+:   */
+/*   ft_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/05 17:31:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:34:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	ft_config_window(mlx_t *mlx, t_config *cfg)
 		cfg->monitor_height - (cfg->monitor_height / 10));
 }
 
-int	ft_error(mlx_t *mlx)
+int	ft_exit(mlx_t *mlx)
 {
 	ft_printf("%s\n", mlx_strerror(mlx_errno));
-	mlx_terminate(mlx);
+	if (mlx_errno != MLX_INVARGS)
+		mlx_terminate(mlx);
 	return (mlx_errno);
 }
 

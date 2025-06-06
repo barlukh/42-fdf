@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 13:34:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:34:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ int	main(int argc, char **argv)
 	mlx_t		*mlx;
 	t_config	cfg;
 
-	ft_parse_input(argc, argv);
+	mlx = NULL;
+	if (ft_parse_input(argc, argv) == EXIT_FAILURE)
+	{
+		mlx_errno = MLX_INVARGS;
+		return(ft_exit(mlx));
+	}
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
-		return (ft_error(mlx));
+		return (ft_exit(mlx));
 	ft_config_window(mlx, &cfg);
 	mlx_key_hook(mlx, ft_key_hook, mlx);
 	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	return (ft_exit(mlx));
 }

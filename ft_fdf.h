@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 13:44:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 15:33:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,6 @@ typedef struct s_struct
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-/** Callback function that executes when a key event occurs.
- * @param keydata Data related to the mlx_key_hook function.
- * @param param An additional optional parameter.
- * @return None.
- */
-void	ft_key_hook(mlx_key_data_t keydata, void *param);
-
 /** Configurates the parameters of the window.
  * @param mlx The MLX instance handle.
  * @param cfg Struct containing basic variables for setting up the program.
@@ -86,17 +79,24 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param);
  */
 void	ft_config_window(mlx_t *mlx, t_config *cfg);
 
-/**	Prints an error message with the corresponding errno and terminates mlx.
+/**	Prints an error message with the corresponding error number (errno).
  * @param mlx The MLX instance handle.
  * @return Errno.
  */
-int		ft_error(mlx_t *mlx);
+int		ft_exit(mlx_t *mlx);
 
 /** Reads and returns a line from a file pointed to by a file descriptor.
  * @param fd File descriptor to read data from.
  * @return Read line (string).
  */
 char	*ft_get_next_line(int fd);
+
+/** Callback function that executes when a key event occurs.
+ * @param keydata Data related to the mlx_key_hook function.
+ * @param param An additional optional parameter.
+ * @return None.
+ */
+void	ft_key_hook(mlx_key_data_t keydata, void *param);
 
 /** Copies bytes from one memory area to another; the areas must not overlap.
  * @param dest Pointer to the destination memory area.
@@ -105,6 +105,13 @@ char	*ft_get_next_line(int fd);
  * @return Pointer to the destination memory area.
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/** Parses command line arguments checking for invalid input.
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return 0 on SUCCESS, 1 on FAILURE.
+ */
+int		ft_parse_input(int argc, char **argv);
 
 /** Writes a string with format specifiers into the standard output.
  * @param s String to write.
