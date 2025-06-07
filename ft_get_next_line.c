@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 13:43:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/07 19:14:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static char	*ft_line_read(int fd, char **buf, t_struct *var);
-static char	*ft_strjoin(char *buf, t_struct *var);
+static char	*ft_strjoin_gnl(char *buf, t_struct *var);
 static char	*ft_substr_gnl(char **s, size_t len);
 
 char	*ft_get_next_line(int fd)
@@ -62,7 +62,7 @@ static char	*ft_line_read(int fd, char **buf, t_struct *var)
 			free(var->cache);
 			return (*buf = NULL);
 		}
-		var->cache = ft_strjoin(*buf, var);
+		var->cache = ft_strjoin_gnl(*buf, var);
 		if (!var->cache)
 		{
 			free(*buf);
@@ -74,7 +74,7 @@ static char	*ft_line_read(int fd, char **buf, t_struct *var)
 	return (var->br);
 }
 
-static char	*ft_strjoin(char *buf, t_struct *var)
+static char	*ft_strjoin_gnl(char *buf, t_struct *var)
 {
 	size_t	cache_len;
 	char	*new_cache;
