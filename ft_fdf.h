@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 16:55:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/07 11:11:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // Library Headers
 //------------------------------------------------------------------------------
 
+# include <fcntl.h>
 # include <limits.h>
 # include <MLX42.h>
 # include <stdarg.h>
@@ -28,7 +29,7 @@
 //------------------------------------------------------------------------------
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 100
 # endif
 
 # define BASE10 10
@@ -68,16 +69,19 @@ typedef struct s_struct
 	char	*new_line;
 }	t_struct;
 
+/** Linked list struct storing the content of the map (one line per node).
+ * @param content 
+ * @param next Address of the next node.
+ */
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
-
-/** Configurates the parameters of the window.
- * @param mlx The MLX instance handle.
- * @param cfg Struct containing basic variables for setting up the program.
- * @return None.
- */
-void	ft_config_window(mlx_t *mlx, t_config *cfg);
 
 /**	Prints an error message with the corresponding error number (errno).
  * @param mlx The MLX instance handle.
@@ -91,12 +95,45 @@ int		ft_exit(mlx_t *mlx);
  */
 char	*ft_get_next_line(int fd);
 
+/** Parses command line arguments.
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return 0 on SUCCESS, 1 on FAILURE.
+ */
+int		ft_init_parse(int argc, char **argv);
+
+/** Configurates the parameters of the window.
+ * @param mlx The MLX instance handle.
+ * @param cfg Struct containing basic variables for setting up the program.
+ * @return None.
+ */
+void	ft_init_window(mlx_t *mlx, t_config *cfg);
+
 /** Callback function that executes when a key event occurs.
  * @param keydata Data related to the mlx_key_hook function.
  * @param param An additional optional parameter.
  * @return None.
  */
 void	ft_key_hook(mlx_key_data_t keydata, void *param);
+
+/** Adds a node at the end of a linked list.
+ * @param lst Address of a pointer to the first node of the list.
+ * @param new Address of the node to add.
+ * @return None.
+ */
+void	ft_lstadd_back(t_list **lst, t_list *new);
+
+/** Deletes and frees a given node and all its successors.
+ * @param lst Address of a pointer to the node.
+ * @return None.
+ */
+void	ft_lstclear(t_list **lst);
+
+/** Creates a new node in a linked list.
+ * @param content Content to store in the new node.
+ * @return Pointer to the new node.
+ */
+t_list	*ft_lstnew(void *content);
 
 /** Copies bytes from one memory area to another; the areas must not overlap.
  * @param dest Pointer to the destination memory area.
@@ -105,13 +142,6 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param);
  * @return Pointer to the destination memory area.
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-
-/** Parses command line arguments.
- * @param argc Argument count.
- * @param argv Argument vector.
- * @return 0 on SUCCESS, 1 on FAILURE.
- */
-int		ft_parse_input(int argc, char **argv);
 
 /** Writes a string with format specifiers into the standard output.
  * @param s String to write.
