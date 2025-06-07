@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 11:11:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/07 11:30:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		ft_exit(mlx_t *mlx);
 
 /** Reads and returns a line from a file pointed to by a file descriptor.
  * @param fd File descriptor to read data from.
- * @return Read line (string).
+ * @return Dynamically allocated line (string), NULL on error or EOF.
  */
 char	*ft_get_next_line(int fd);
 
@@ -185,7 +185,7 @@ int		ft_putstr(const char *s);
 /** Scans a string for the first instance of 'c'.
  * @param s String to search.
  * @param c Character to search for, passed as an int.
- * @return Pointer to the matching location, 'NULL' if no match.
+ * @return Pointer to the matching location, NULL if no match.
  */
 char	*ft_strchr(const char *s, int c);
 
@@ -199,7 +199,7 @@ size_t	ft_strlen(const char *s);
  * @param s Source string for the substring.
  * @param start Starting index.
  * @param len Length of the substring.
- * @return New substring, 'NULL' if the allocation fails.
+ * @return New substring, NULL if the allocation fails.
  */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 

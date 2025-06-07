@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:31:54 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 11:14:04 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/07 13:27:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	temp = *lst;
 	while (temp->next != NULL)
-	{
 		temp = temp->next;
-	}
 	temp->next = new;
 }
 
