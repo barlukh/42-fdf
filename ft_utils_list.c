@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:31:54 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/08 13:58:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 14:35:02 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,17 @@ t_list	*ft_lstnew(void *content)
 	node->content = content;
 	node->next = NULL;
 	return (node);
+}
+
+int	ft_lstsize(t_list *lst)
+{
+	size_t	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }

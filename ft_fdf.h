@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/08 11:18:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 14:36:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,16 @@ typedef struct s_coordinates
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-/**	Prints an error message with the corresponding error number (errno).
+/**	Prints an error message according to the error number (mlx_errno).
+ * @return Errno.
+ */
+int		ft_exit_msg(void);
+
+/**	Prints an error message according to the error number (mlx_errno).
  * @param mlx The MLX instance handle.
  * @return Errno.
  */
-int		ft_exit(mlx_t *mlx);
+int		ft_exit_term(mlx_t *mlx);
 
 /** Reads and returns a line from a file pointed to by a file descriptor.
  * @param fd File descriptor to read data from.
@@ -140,6 +145,12 @@ void	ft_lstclear(t_list **lst);
  * @return Pointer to the new node.
  */
 t_list	*ft_lstnew(void *content);
+
+/** Counts the number of nodes in a linked list.
+ * @param lst First node of the list.
+ * @return Length of the list.
+ */
+int		ft_lstsize(t_list *lst);
 
 /** Copies bytes from one memory area to another; the areas must not overlap.
  * @param dest Pointer to the destination memory area.

@@ -6,13 +6,26 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 19:23:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 14:27:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static void	ft_putstr(const char *s);
+
+int	ft_exit_msg(void)
+{
+	ft_putstr(mlx_strerror(mlx_errno));
+	return (mlx_errno);
+}
+
+int	ft_exit_term(mlx_t *mlx)
+{
+	ft_putstr(mlx_strerror(mlx_errno));
+	mlx_terminate(mlx);
+	return (mlx_errno);
+}
 
 void	ft_init_window(mlx_t *mlx, t_config *cfg)
 {
@@ -22,15 +35,6 @@ void	ft_init_window(mlx_t *mlx, t_config *cfg)
 	mlx_set_window_limit(mlx, cfg->monitor_width / 4, cfg->monitor_height / 4,
 		cfg->monitor_width - (cfg->monitor_width / 10),
 		cfg->monitor_height - (cfg->monitor_height / 10));
-}
-
-int	ft_exit(mlx_t *mlx)
-{
-	ft_putstr(mlx_strerror(mlx_errno));
-	if (mlx_errno != MLX_INVARGS && mlx_errno != MLX_INVEXT
-		&& mlx_errno != MLX_INVFILE && mlx_errno != MLX_INVMAP)
-		mlx_terminate(mlx);
-	return (mlx_errno);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
