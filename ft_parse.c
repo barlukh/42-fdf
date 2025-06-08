@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 19:27:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 11:18:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ft_validate_map(int fd, t_list **lst)
 	{
 		line = ft_get_next_line(fd);
 		if (line == NULL)
-			break;
+			break ;
 		node = ft_lstnew(line);
 		ft_lstadd_back(lst, node);
 	}

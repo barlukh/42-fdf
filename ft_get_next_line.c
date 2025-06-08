@@ -6,20 +6,20 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 19:14:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 11:04:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-static char	*ft_line_read(int fd, char **buf, t_struct *var);
-static char	*ft_strjoin_gnl(char *buf, t_struct *var);
+static char	*ft_line_read(int fd, char **buf, t_gnl *var);
+static char	*ft_strjoin_gnl(char *buf, t_gnl *var);
 static char	*ft_substr_gnl(char **s, size_t len);
 
 char	*ft_get_next_line(int fd)
 {
 	static char	*buf;
-	t_struct	var;
+	t_gnl		var;
 
 	if (!buf)
 	{
@@ -45,7 +45,7 @@ char	*ft_get_next_line(int fd)
 	return (var.new_line);
 }
 
-static char	*ft_line_read(int fd, char **buf, t_struct *var)
+static char	*ft_line_read(int fd, char **buf, t_gnl *var)
 {
 	var->br = ft_strchr(var->cache, '\n');
 	while (!var->br)
@@ -74,7 +74,7 @@ static char	*ft_line_read(int fd, char **buf, t_struct *var)
 	return (var->br);
 }
 
-static char	*ft_strjoin_gnl(char *buf, t_struct *var)
+static char	*ft_strjoin_gnl(char *buf, t_gnl *var)
 {
 	size_t	cache_len;
 	char	*new_cache;

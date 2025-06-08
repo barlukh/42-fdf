@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/07 19:21:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/08 11:18:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <MLX42.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# include <stdio.h> // REMOVE BEFORE SUBMISSION!
 
 //------------------------------------------------------------------------------
 // Macro Definitions
@@ -53,16 +55,16 @@ typedef struct s_config
  * @param read_bytes Return value from the read() function.
  * @param new_line Allocated line to return.
  */
-typedef struct s_struct
+typedef struct s_gnl
 {
 	char	*cache;
 	char	*br;
 	ssize_t	read_bytes;
 	char	*new_line;
-}	t_struct;
+}	t_gnl;
 
 /** Linked list struct storing the content of the map (one line per node).
- * @param content 
+ * @param content Line from the map file stored as a string.
  * @param next Address of the next node.
  */
 typedef struct s_list
@@ -70,6 +72,18 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+/** Struct for x, y and z coordinates.
+ * @param x X-axis.
+ * @param y Y-axis.
+ * @param z Z-axis.
+ */
+typedef struct s_coordinates
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_coordinates;
 
 //------------------------------------------------------------------------------
 // Function Prototypes
