@@ -880,7 +880,7 @@
    fun:dlclose@@GLIBC_2.34
    obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
    fun:mlx_terminate
-   fun:ft_exit
+   fun:ft_exit_term
    fun:main
 }
 {
@@ -1337,4 +1337,20 @@
    fun:_dl_catch_exception
    fun:_dl_catch_error
    fun:_dlerror_run
+}
+{
+   suppression_79
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:mlx_init
+   fun:main
+}
+{
+   suppression_80
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:mlx_init
+   fun:main
 }
