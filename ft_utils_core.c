@@ -6,20 +6,20 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 11:29:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 16:00:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-void	ft_init_window(mlx_t *mlx, t_config *cfg)
+void	ft_init_window(mlx_t *mlx, t_sconfig *scfg)
 {
-	mlx_get_monitor_size(0, &cfg->monitor_width, &cfg->monitor_height);
-	mlx_set_window_pos(mlx, (cfg->monitor_width - WIDTH) / 2,
-		(cfg->monitor_height - HEIGHT) / 2);
-	mlx_set_window_limit(mlx, cfg->monitor_width / 4, cfg->monitor_height / 4,
-		cfg->monitor_width - (cfg->monitor_width / 10),
-		cfg->monitor_height - (cfg->monitor_height / 10));
+	mlx_get_monitor_size(0, &scfg->monitor_w, &scfg->monitor_h);
+	mlx_set_window_pos(mlx, (scfg->monitor_w - WIDTH) / 2,
+		(scfg->monitor_h - HEIGHT) / 2);
+	mlx_set_window_limit(mlx, scfg->monitor_w / 4, scfg->monitor_h / 4,
+		scfg->monitor_w - (scfg->monitor_w / 10),
+		scfg->monitor_h - (scfg->monitor_h / 10));
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)

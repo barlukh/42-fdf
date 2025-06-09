@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 13:47:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 16:35:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@
 // Type Definitions
 //------------------------------------------------------------------------------
 
-/** Holds system configuration informaton.
- * @param monitor_width Width of the monitor.
- * @param monitor_height Height of the monitor.
+/** Linked list struct storing the content of the map (one line per node).
+ * @param content Line from the map file stored as a string.
+ * @param next Address of the next node.
  */
-typedef struct s_config
+typedef struct s_list
 {
-	int32_t	monitor_width;
-	int32_t	monitor_height;
-}	t_config;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 /** Struct for a point's x, y, and z coordinates and color information.
  * @param x X-axis.
@@ -63,15 +63,31 @@ typedef struct s_point
 	int	color;
 }	t_point;
 
-/** Linked list struct storing the content of the map (one line per node).
- * @param content Line from the map file stored as a string.
- * @param next Address of the next node.
+/** Configuration variables of the array of points.
+ * @param dot Helper variable for argument validation.
+ * @param comparison_size Helper variable to compare the line_size to.
+ * @param fd File descriptor.
+ * @param line_size Number of points on one line (columns).
+ * @param lst_size Number of lines extracted (rows).
  */
-typedef struct s_list
+typedef struct s_pconfig
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+	char	*dot;
+	int		comparison_size;
+	int		fd;
+	int		line_size;
+	int		lst_size;
+}	t_pconfig;
+
+/** Holds system configuration informaton.
+ * @param monitor_w Width of the monitor.
+ * @param monitor_h Height of the monitor.
+ */
+typedef struct s_sconfig
+{
+	int32_t	monitor_w;
+	int32_t	monitor_h;
+}	t_sconfig;
 
 //------------------------------------------------------------------------------
 // Function Prototypes
@@ -86,18 +102,18 @@ int		ft_atoi(const char *s);
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param line Allocated string (line).
  * @param lst Allocated linked list for extracting the map file.
- * @param fd Opened file descriptor.
- * @param error_flag Error flag to set the correct mlx_errno message.
+ * @param pcfg Configuration variables of the array of points.
+ * @param flag Error flag to set the correct mlx_errno message.
  * @return EXIT FAILURE.
  */
-int		ft_error_map_extract(char *line, t_list **lst, int fd, int error_flag);
+int		ft_error_extract(char *line, t_list **lst, t_pconfig *pcfg, int flag);
 
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param lst Allocated linked list for extracting the map file.
- * @param pt Array of map points and their attributes.
+ * @param p Array of map points and their attributes.
  * @return EXIT FAILURE.
  */
-int		ft_error_map_sort(t_list **lst, t_point *pt);
+int		ft_error_sort(t_list **lst, t_point *p);
 
 /**	Prints an error message according to mlx_errno.
  * @return Errno.
@@ -106,10 +122,10 @@ int		ft_exit_msg(void);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
  * @param mlx The MLX instance handle.
- * @param pt Array of map points and their attributes.
+ * @param p Array of map points and their attributes.
  * @return Errno.
  */
-int		ft_exit_terminate(mlx_t *mlx, t_point *pt);
+int		ft_exit_terminate(mlx_t *mlx, t_point *p);
 
 /** Frees memory allocated by ft_split() for splitting each line.
  * @param line Allocated string (line).
@@ -126,17 +142,18 @@ char	*ft_get_next_line(int fd);
 /** Parses command line arguments.
  * @param argc Argument count.
  * @param argv Argument vector.
- * @param pt Address of an array of map points and their attributes.
+ * @param p Address of an array of map points and their attributes.
+ * @param pcfg Configuration variables of the array of points.
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
-int		ft_init_parse(int argc, char **argv, t_point **pt);
+int		ft_init_parse(int argc, char **argv, t_point **p, t_pconfig *pcfg);
 
 /** Configurates the parameters of the window.
  * @param mlx The MLX instance handle.
- * @param cfg Struct containing basic variables for setting up the program.
+ * @param scfg Struct containing basic variables for setting up the program.
  * @return None.
  */
-void	ft_init_window(mlx_t *mlx, t_config *cfg);
+void	ft_init_window(mlx_t *mlx, t_sconfig *scfg);
 
 /** Callback function that executes when a key event occurs.
  * @param keydata Data related to the mlx_key_hook function.

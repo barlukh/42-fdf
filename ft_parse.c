@@ -6,99 +6,123 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/08 14:49:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 17:13:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-static int	ft_map_extract(int fd, t_list **lst);
-static int	ft_map_sort(t_list **lst);
-static int	ft_validate_arguments(int argc, char **argv);
-static int	ft_validate_file(int *fd, char **argv);
+static int	ft_map_extract(t_pconfig *pcfg, t_list **lst);
+static int	ft_map_sort(t_list **lst, t_point *p, t_pconfig *pcfg);
+static int	ft_validate_arguments(int argc, char **argv, t_pconfig *pcfg);
 
-int	ft_init_parse(int argc, char **argv)
+int	ft_init_parse(int argc, char **argv, t_point **p, t_pconfig *pcfg)
 {
-	int		fd;
 	t_list	*lst;
 
 	lst = NULL;
-	if (ft_validate_arguments(argc, argv) == EXIT_FAILURE)
+	pcfg->lst_size = 0;
+	pcfg->line_size = 0;
+	if (ft_validate_arguments(argc, argv, pcfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_validate_file(&fd, argv) == EXIT_FAILURE)
+	if (ft_map_extract(pcfg, &lst) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_map_extract(fd, &lst) == EXIT_FAILURE)
+	*p = malloc(pcfg->lst_size * pcfg->line_size * sizeof(t_point));
+	if (!p || !*p)
+	{
+		mlx_errno = MLX_MEMFAIL;
+		ft_lstclear(&lst);
 		return (EXIT_FAILURE);
-	if (ft_map_sort(&lst) == EXIT_FAILURE)
+	}
+	if (ft_map_sort(&lst, *p, pcfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-// Links each row in the map file as a string to a linked list
-static int	ft_map_extract(int fd, t_list **lst)
+// Links each row in the map file as a string to a linked list.
+static int	ft_map_extract(t_pconfig *pcfg, t_list **lst)
 {
 	char	*line;
 	t_list	*node;
 
-	while (1)
+	pcfg->comparison_size = INT32_MIN;
+	line = ft_get_next_line(pcfg->fd);
+	while (line != NULL)
 	{
-		line = ft_get_next_line(fd);
-		if (line == NULL)
-			break ;
+		pcfg->line_size = ft_word_count(line, ' ');
+		if (pcfg->comparison_size == INT32_MIN)
+			pcfg->comparison_size = pcfg->line_size;
+		else if (pcfg->comparison_size != pcfg->line_size)
+			return (ft_error_extract(line, lst, pcfg, MLX_INVMAP));
 		node = ft_lstnew(line);
 		if (!node)
-		{
-			free(line);
-			ft_lstclear(lst);
-			close (fd);
-			mlx_errno = MLX_MEMFAIL;
-			return (EXIT_FAILURE);
-		}
+			return (ft_error_extract(line, lst, pcfg, MLX_MEMFAIL));
 		ft_lstadd_back(lst, node);
+		line = ft_get_next_line(pcfg->fd);
 	}
-	close (fd);
+	pcfg->lst_size = ft_lstsize(*lst);
+	close (pcfg->fd);
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_map_sort(t_list **lst)
+// Creates final struct for each point in the map.
+static int	ft_map_sort(t_list **lst, t_point *p, t_pconfig *pcfg)
 {
-	printf("%d\n", ft_lstsize(*lst));
+	t_list	*temp;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+	char	**line;
 
-
+	temp = *lst;
+	i = 0;
+	j = 0;
+	k = 0;
+	while (temp != NULL)
+	{
+		line = ft_split((char *)temp->content, ' ');
+		if (!line)
+			return (ft_error_sort(lst, p));
+		while (line[i] != NULL)
+		{
+			p[j].x = j % pcfg->line_size;
+			p[j].y = k;
+			p[j].z = ft_atoi(line[i]);
+			p[j].color = 0;
+			i++;
+			j++;
+		}
+		ft_free_split(line);
+		i = 0;
+		k++;
+		temp = temp->next;
+	}
 	ft_lstclear(lst);
 	return (EXIT_SUCCESS);
 }
 
-// Validates arguments passed from the command line
-static int	ft_validate_arguments(int argc, char **argv)
+// Validates arguments passed from the command line.
+static int	ft_validate_arguments(int argc, char **argv, t_pconfig *pcfg)
 {
-	char	*dot;
-
 	if (argc != 2)
 	{
 		mlx_errno = MLX_INVARGS;
 		return (EXIT_FAILURE);
 	}
-	dot = ft_strchr(argv[1], '.');
-	if (!dot || argv[1][0] == '.')
+	pcfg->dot = ft_strchr(argv[1], '.');
+	if (!pcfg->dot || argv[1][0] == '.')
 	{
 		mlx_errno = MLX_INVARGS;
 		return (EXIT_FAILURE);
 	}
-	if ((*(dot + 1) != 'f' || *(dot + 2) != 'd'
-			|| *(dot + 3) != 'f' || *(dot + 4) != '\0'))
+	if ((*(pcfg->dot + 1) != 'f' || *(pcfg->dot + 2) != 'd'
+			|| *(pcfg->dot + 3) != 'f' || *(pcfg->dot + 4) != '\0'))
 	{
 		mlx_errno = MLX_INVEXT;
 		return (EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
-}
-
-// Validates file and sets a file descriptor
-static int	ft_validate_file(int *fd, char **argv)
-{
-	*fd = open(argv[1], O_RDONLY);
-	if (*fd == -1)
+	pcfg->fd = open(argv[1], O_RDONLY);
+	if (pcfg->fd == -1)
 	{
 		mlx_errno = MLX_INVFILE;
 		return (EXIT_FAILURE);
