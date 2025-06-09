@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/08 14:36:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 12:21:31 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ typedef struct s_config
 	int32_t	monitor_height;
 }	t_config;
 
-/** Holds variables related to the ft_get_next_line function.
- * @param cache Helper string allowing continuous read from the buffer.
- * @param br Character signaling break of the line (either '\n' or '\0').
- * @param read_bytes Return value from the read() function.
- * @param new_line Allocated line to return.
+/** Struct for a point's x, y, and z coordinates and color information.
+ * @param x X-axis.
+ * @param y Y-axis.
+ * @param z Z-axis.
+ * @param color Color in RGB hexadecimal format.
  */
-typedef struct s_gnl
+typedef struct s_point
 {
-	char	*cache;
-	char	*br;
-	ssize_t	read_bytes;
-	char	*new_line;
-}	t_gnl;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}	t_point;
 
 /** Linked list struct storing the content of the map (one line per node).
  * @param content Line from the map file stored as a string.
@@ -73,32 +73,42 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-/** Struct for x, y and z coordinates.
- * @param x X-axis.
- * @param y Y-axis.
- * @param z Z-axis.
- */
-typedef struct s_coordinates
-{
-	int	x;
-	int	y;
-	int	z;
-}	t_coordinates;
-
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-/**	Prints an error message according to the error number (mlx_errno).
+/** Converts a string to an integer.
+ * @param nptr String to be converted.
+ * @return Converted string as an int.
+ */
+int		ft_atoi(const char *s);
+
+/**	Prints an error message according to mlx_errno.
  * @return Errno.
  */
 int		ft_exit_msg(void);
 
-/**	Prints an error message according to the error number (mlx_errno).
+/**	Prints an error message according to the mlx_errno and frees memory.
  * @param mlx The MLX instance handle.
+ * @param pt Array of map points and their attributes.
  * @return Errno.
  */
-int		ft_exit_term(mlx_t *mlx);
+int		ft_exit_term(mlx_t *mlx, t_point *pt);
+
+/** Sets an error message according to the mlx_errno and frees memory.
+ * @param line Allocated string (line).
+ * @param lst Allocated linked list for extracting the map file.
+ * @param fd Opened file descriptor.
+ * @param error_flag Error flag to set the correct mlx_errno message.
+ * @return EXIT FAILURE.
+ */
+int		ft_free_extract(char *line, t_list **lst, int fd, int error_flag);
+
+/** Frees memory allocated by ft_split() for splitting each line.
+ * @param line Allocated string (line).
+ * @return None.
+ */
+void	ft_free_split(char **line);
 
 /** Reads and returns a line from a file pointed to by a file descriptor.
  * @param fd File descriptor to read data from.
@@ -109,9 +119,10 @@ char	*ft_get_next_line(int fd);
 /** Parses command line arguments.
  * @param argc Argument count.
  * @param argv Argument vector.
+ * @param pt Address of an array of map points and their attributes.
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
-int		ft_init_parse(int argc, char **argv);
+int		ft_init_parse(int argc, char **argv, t_point **pt);
 
 /** Configurates the parameters of the window.
  * @param mlx The MLX instance handle.
@@ -160,6 +171,19 @@ int		ft_lstsize(t_list *lst);
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
+/** Writes a string into the standard output followed by a newline character.
+ * @param s String to write.
+ * @return None.
+ */
+void	ft_putstr(const char *s);
+
+/** Splits a string according to a specified delimiter.
+ * @param s String to split.
+ * @param c Delimiter.
+ * @return Array of new strings, NULL if the allocation fails.
+ */
+char	**ft_split(char const *s, char c);
+
 /** Scans a string for the first instance of 'c'.
  * @param s String to search.
  * @param c Character to search for, passed as an int.
@@ -180,5 +204,12 @@ size_t	ft_strlen(const char *s);
  * @return New substring, NULL if the allocation fails.
  */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+/** Counts how many words are in a string based on a delimiter 'c'.
+ * @param s String to check.
+ * @param c Delimiter.
+ * @return Word count.
+ */
+int		ft_word_count(char const *s, char c);
 
 #endif
