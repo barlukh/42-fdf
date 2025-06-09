@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/07 19:27:06 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/09 12:17:09 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ SRCS =	ft_get_next_line.c \
 		ft_parse.c \
 		ft_split.c \
 		ft_utils_core.c \
+		ft_utils_exit.c \
 		ft_utils_list.c \
-		ft_utils_str.c \
+		ft_utils_other.c \
+		ft_utils_string.c \
 
 all: $(NAME)
 
