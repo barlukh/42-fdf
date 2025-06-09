@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 12:21:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 13:47:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,22 @@ typedef struct s_list
  */
 int		ft_atoi(const char *s);
 
+/** Sets an error message according to the mlx_errno and frees memory.
+ * @param line Allocated string (line).
+ * @param lst Allocated linked list for extracting the map file.
+ * @param fd Opened file descriptor.
+ * @param error_flag Error flag to set the correct mlx_errno message.
+ * @return EXIT FAILURE.
+ */
+int		ft_error_map_extract(char *line, t_list **lst, int fd, int error_flag);
+
+/** Sets an error message according to the mlx_errno and frees memory.
+ * @param lst Allocated linked list for extracting the map file.
+ * @param pt Array of map points and their attributes.
+ * @return EXIT FAILURE.
+ */
+int		ft_error_map_sort(t_list **lst, t_point *pt);
+
 /**	Prints an error message according to mlx_errno.
  * @return Errno.
  */
@@ -93,16 +109,7 @@ int		ft_exit_msg(void);
  * @param pt Array of map points and their attributes.
  * @return Errno.
  */
-int		ft_exit_term(mlx_t *mlx, t_point *pt);
-
-/** Sets an error message according to the mlx_errno and frees memory.
- * @param line Allocated string (line).
- * @param lst Allocated linked list for extracting the map file.
- * @param fd Opened file descriptor.
- * @param error_flag Error flag to set the correct mlx_errno message.
- * @return EXIT FAILURE.
- */
-int		ft_free_extract(char *line, t_list **lst, int fd, int error_flag);
+int		ft_exit_terminate(mlx_t *mlx, t_point *pt);
 
 /** Frees memory allocated by ft_split() for splitting each line.
  * @param line Allocated string (line).
