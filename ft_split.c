@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:38:11 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/06 11:46:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 13:13:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static char		**ft_allocate_array(char const *s, char c, char **arr);
 static void		ft_free_array(char **arr, size_t i);
-static size_t	ft_word_count(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	word_count;
+	int		word_count;
 	char	**arr;
 
 	if (!s)
@@ -34,7 +33,26 @@ char	**ft_split(char const *s, char c)
 	return (arr);
 }
 
-// Allocates each single word into its array
+int	ft_word_count(char const *s, char c)
+{
+	int	count;
+
+	count = 0;
+	while (*s)
+	{
+		while (*s == c || *s == '\n')
+			s++;
+		if (*s)
+		{
+			count++;
+			while (*s && *s != c && *s != '\n')
+				s++;
+		}
+	}
+	return (count);
+}
+
+// Allocates each single word into its array.
 static char	**ft_allocate_array(char const *s, char c, char **arr)
 {
 	size_t	word_len;
@@ -43,7 +61,7 @@ static char	**ft_allocate_array(char const *s, char c, char **arr)
 	i = 0;
 	while (*s)
 	{
-		while (*s == c)
+		while (*s == c || *s == '\n')
 			s++;
 		if (*s)
 		{
@@ -64,31 +82,11 @@ static char	**ft_allocate_array(char const *s, char c, char **arr)
 	return (arr);
 }
 
-// Frees all arrays
+// Frees all arrays.
 static void	ft_free_array(char **arr, size_t i)
 {
 	while (i > 0)
 		free(arr[i--]);
 	free(arr[i]);
 	free(arr);
-}
-
-// Counts how many words to split the string into
-static size_t	ft_word_count(char const *s, char c)
-{
-	size_t	count;
-
-	count = 0;
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (*s)
-		{
-			count++;
-			while (*s && *s != c)
-				s++;
-		}
-	}
-	return (count);
 }
