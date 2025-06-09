@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 07:33:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 11:35:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_get_next_line(int fd)
 	return (new_line);
 }
 
-// Reads from a file looking for a linebreak or EOF
+// Reads from a file looking for a linebreak or EOF.
 static char	*ft_read_line(int fd, char *buf, char **cache, char **line_end)
 {
 	ssize_t	read_bytes;
@@ -67,7 +67,7 @@ static char	*ft_read_line(int fd, char *buf, char **cache, char **line_end)
 	return (*line_end);
 }
 
-// Joins two strings together (cache with the readout from a buffer)
+// Joins two strings together (cache with the readout from a buffer).
 static char	*ft_strjoin_gnl(char *buf, char *cache, ssize_t read_bytes)
 {
 	size_t	cache_len;
@@ -89,7 +89,7 @@ static char	*ft_strjoin_gnl(char *buf, char *cache, ssize_t read_bytes)
 	return (new_cache);
 }
 
-// Creates a new substring of specified length from a string
+// Creates a new substring of specified length from a string.
 static char	*ft_substr_gnl(char *s, size_t len)
 {
 	char	*substr;
