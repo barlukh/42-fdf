@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:38:11 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 13:13:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:06:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static char		**ft_allocate_array(char const *s, char c, char **arr);
-static void		ft_free_array(char **arr, size_t i);
+static void		*ft_free_array(char **arr, size_t i);
 
 char	**ft_split(char const *s, char c)
 {
@@ -67,14 +67,13 @@ static char	**ft_allocate_array(char const *s, char c, char **arr)
 		{
 			if (ft_strchr(s, c))
 				word_len = ft_strchr(s, c) - s;
+			else if (ft_strchr(s, '\n'))
+				word_len = ft_strlen(s) - 1;
 			else
 				word_len = ft_strlen(s);
 			arr[i] = ft_substr(s, 0, word_len);
 			if (!arr[i])
-			{
-				ft_free_array(arr, i);
-				return (NULL);
-			}
+				return (ft_free_array(arr, i));
 			s += word_len;
 			i++;
 		}
@@ -83,10 +82,11 @@ static char	**ft_allocate_array(char const *s, char c, char **arr)
 }
 
 // Frees all arrays.
-static void	ft_free_array(char **arr, size_t i)
+static void	*ft_free_array(char **arr, size_t i)
 {
 	while (i > 0)
 		free(arr[i--]);
 	free(arr[i]);
 	free(arr);
+	return (NULL);
 }
