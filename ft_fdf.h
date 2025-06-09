@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 16:35:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 19:36:35 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,26 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+/** Configuration variables of the array of points.
+ * @param c Helper variable for argument validation.
+ * @param comparison_size Helper variable to compare the line_size to.
+ * @param fd File descriptor.
+ * @param line_size Number of points on one line (columns).
+ * @param lst_size Number of lines extracted (rows).
+ */
+typedef struct s_pconfig
+{
+	char	*c;
+	char	**split;
+	int		comparison_size;
+	int		fd;
+	int		line_size;
+	int		lst_size;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+}	t_pconfig;
+
 /** Struct for a point's x, y, and z coordinates and color information.
  * @param x X-axis.
  * @param y Y-axis.
@@ -57,27 +77,11 @@ typedef struct s_list
  */
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
+	int			x;
+	int			y;
+	int			z;
+	uint32_t	color;
 }	t_point;
-
-/** Configuration variables of the array of points.
- * @param dot Helper variable for argument validation.
- * @param comparison_size Helper variable to compare the line_size to.
- * @param fd File descriptor.
- * @param line_size Number of points on one line (columns).
- * @param lst_size Number of lines extracted (rows).
- */
-typedef struct s_pconfig
-{
-	char	*dot;
-	int		comparison_size;
-	int		fd;
-	int		line_size;
-	int		lst_size;
-}	t_pconfig;
 
 /** Holds system configuration informaton.
  * @param monitor_w Width of the monitor.
@@ -93,11 +97,11 @@ typedef struct s_sconfig
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-/** Converts a string to an integer.
+/** Converts a string to an integer (detects hex values).
  * @param nptr String to be converted.
  * @return Converted string as an int.
  */
-int		ft_atoi(const char *s);
+int		ft_atoi_base(const char *s);
 
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param line Allocated string (line).

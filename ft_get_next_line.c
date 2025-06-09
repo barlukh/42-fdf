@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 17:12:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 19:28:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ static char	*ft_read_line(int fd, char *buf, char **cache, char **line_end)
 		}
 		*cache = ft_strjoin_gnl(buf, *cache, read_bytes);
 		if (!*cache)
+		{
+			mlx_errno = MLX_MEMFAIL;
 			return (NULL);
+		}
 		*line_end = ft_strchr(*cache, '\n');
 	}
 	return (*line_end);
@@ -97,7 +100,10 @@ static char	*ft_substr_gnl(char *s, size_t len)
 
 	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
+	{
+		mlx_errno = MLX_MEMFAIL;
 		return (NULL);
+	}
 	i = 0;
 	while (i < len)
 	{

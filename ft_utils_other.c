@@ -6,32 +6,37 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 11:05:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/09 19:37:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-int	ft_atoi(const char *s)
+int	ft_atoi_base(const char *s)
 {
-	size_t	i;
-	int		sign;
-	int		n;
+	int	n;
+	int	base;
 
-	i = 0;
-	sign = 1;
-	if (s[i] == '-')
-	{
-		sign *= -1;
-		i++;
-	}
 	n = 0;
-	while (s[i] != '\0')
+	base = 10;
+	if (*s == '0' && (*(s + 1) == 'x' || *(s + 1) == 'X'))
 	{
-		n = n * 10 + (s[i] - '0');
-		i++;
+		base = 16;
+		s += 2;
 	}
-	n = n * sign;
+	while (*s)
+	{
+		n *= base;
+		if (*s >= '0' && *s <= '9')
+			n += *s - '0';
+		else if (base == 16 && *s >= 'A' && *s <= 'F')
+			n += *s - 'A' + 10;
+		else if (base == 16 && *s >= 'a' && *s <= 'f')
+			n += *s - 'a' + 10;
+		else
+			break ;
+		s++;
+	}
 	return (n);
 }
 
