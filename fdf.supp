@@ -880,7 +880,7 @@
    fun:dlclose@@GLIBC_2.34
    obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
    fun:mlx_terminate
-   fun:ft_exit_term
+   fun:ft_exit_terminate
    fun:main
 }
 {
