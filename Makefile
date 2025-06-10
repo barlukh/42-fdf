@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/09 12:17:09 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/10 16:58:21 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ RM = rm -f
 
 HDRS = ft_fdf.h
 OBJS = $(SRCS:.c=.o)
-SRCS =	ft_get_next_line.c \
+SRCS =	ft_draw.c \
+		ft_get_next_line.c \
 		ft_main.c \
 		ft_parse.c \
 		ft_split.c \
