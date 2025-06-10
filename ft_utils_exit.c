@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 11:27:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 13:13:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 16:10:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_error_extract(char *line, t_list **lst, t_config *cfg, int flag)
 	return (EXIT_FAILURE);
 }
 
-int ft_error_img(mlx_t *mlx, t_config *cfg)
+int	ft_error_img(mlx_t *mlx, t_config *cfg)
 {
 	mlx_errno = MLX_MEMFAIL;
 	ft_putstr(mlx_strerror(mlx_errno));
