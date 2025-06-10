@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 19:37:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 09:52:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int	ft_atoi_base(const char *s)
 		s++;
 	}
 	return (n);
+}
+
+void	ft_free_split(char **line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i] != NULL)
+	{
+		free(line[i]);
+		i++;
+	}
+	free(line);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
