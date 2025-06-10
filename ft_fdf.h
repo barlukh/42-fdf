@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 09:58:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 11:48:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,13 @@ typedef struct s_point
  */
 int		ft_atoi_base(const char *s);
 
-/** Configurates the image drawn on the screen.
- * @param img Allocated MLX image handle.
- * @return None.
- */
-void	ft_config_image(mlx_image_t *img);
-
-/** Configurates the parameters of the window.
+/** Configurates the initial window.
  * @param mlx The MLX instance handle.
+ * @param img Allocated MLX image handle.
  * @param cfg Struct containing basic variables for setting up the program.
  * @return None.
  */
-void	ft_config_window(mlx_t *mlx, t_config *cfg);
+void	ft_config_window(mlx_t *mlx,  mlx_image_t *img, t_config *cfg);
 
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param line Allocated string (line).

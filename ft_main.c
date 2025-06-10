@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/09 19:11:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 11:48:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,34 @@
 
 int	main(int argc, char **argv)
 {
+	t_config	cfg;
+	mlx_image_t	*img;
 	mlx_t		*mlx;
 	t_point		*p;
-	t_pconfig	pcfg;
-	t_sconfig	scfg;
 
-	if (ft_init_parse(argc, argv, &p, &pcfg) == EXIT_FAILURE)
-		return (ft_exit_msg());
+	
+	if (ft_parse(argc, argv, &p, &cfg) == EXIT_FAILURE)
+	return (ft_error_msg());
 	// test
 	int i = 0;
-	while (i < (pcfg.line_size * pcfg.lst_size))
+	while (i < (cfg.line_size * cfg.lst_size))
 	{
 		printf("[%d, %d, %d, %d] ", p[i].x, p[i].y, p[i].z, p[i].color);
 		i++;
-		if (i % pcfg.line_size == 0)
-			printf("\n");
+		if (i % cfg.line_size == 0)
+		printf("\n");
 	}
 	// ........................................
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
-		return (ft_exit_msg());
-	ft_init_window(mlx, &scfg);
+		return (ft_error_msg());
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!img)
+		return (ft_error_img(mlx, p));
+	ft_config_window(mlx, img, &cfg);
+	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_key_hook(mlx, ft_key_hook, mlx);
 	mlx_loop(mlx);
-	return (ft_exit_terminate(mlx, p));
+	return (ft_exit_terminate(mlx, img, p));
 }
