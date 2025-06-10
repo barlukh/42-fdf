@@ -6,13 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 15:12:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 16:57:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
-
-static void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, uint32_t color);
 
 void	ft_config_matrix(t_config *cfg)
 {
@@ -48,23 +46,6 @@ void	ft_config_window(mlx_t *mlx, t_config *cfg)
 	}
 }
 
-void	ft_draw(void *param)
-{
-	t_config	*cfg;
-
-	cfg = param;
-	cfg->i = 0;
-	while (cfg->i < (cfg->line_size * cfg->lst_size))
-	{
-		mlx_put_pixel(cfg->img, cfg->p[cfg->i].x, cfg->p[cfg->i].y, 0xFFFFFF);
-		if (cfg->i % cfg->line_size < cfg->line_size / 2
-			&& cfg->i % cfg->lst_size < cfg->lst_size / 2)
-				ft_draw_line(cfg->img, cfg->p[cfg->i].x, cfg->p[cfg->i].y,
-					cfg->p[cfg->i + 1].x, cfg->p[cfg->i + 1].y, 0xFFFFFF);
-		cfg->i++;
-	}
-}
-
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
@@ -72,24 +53,4 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	mlx = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
-}
-
-#include <stdlib.h>
-
-static void ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, uint32_t color)
-{
-    int dx = abs(x1 - x0), sx = (x0 < x1) ? 1 : -1;
-    int dy = -abs(y1 - y0), sy = (y0 < y1) ? 1 : -1;
-    int err = dx + dy, e2;
-
-    while (1)
-    {
-        if (x0 >= 0 && x0 < (int)img->width && y0 >= 0 && y0 < (int)img->height) {
-            mlx_put_pixel(img, x0, y0, color);  // Place pixel
-        }
-        if (x0 == x1 && y0 == y1) break;
-        e2 = 2 * err;
-        if (e2 > dy) { err += dy; x0 += sx; }
-        if (e2 < dx) { err += dx; y0 += sy; }
-    }
 }
