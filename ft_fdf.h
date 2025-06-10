@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 11:48:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 15:13:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 //------------------------------------------------------------------------------
 
 # include <fcntl.h>
+# include <math.h>
 # include <MLX42.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -35,47 +36,11 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
+# define SPACE 100
+
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
-
-/** Configuration and helper variables.
- * @param c Helper variable for argument validation.
- * @param split Temporary array to store the result of ft_split() into.
- * @param comparison_size Helper variable to compare the line_size to.
- * @param fd File descriptor.
- * @param line_size Number of points on one line (columns).
- * @param lst_size Number of lines extracted (rows).
- * @param i Iterator variable.
- * @param j Iterator variable.
- * @param k Iterator variable.
- * @param monitor_w Width of the monitor.
- * @param monitor_h Height of the monitor.
- */
-typedef struct s_config
-{
-	char	*c;
-	char	**split;
-	int		comparison_size;
-	int		fd;
-	int		line_size;
-	int		lst_size;
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	int32_t	monitor_w;
-	int32_t	monitor_h;
-}	t_config;
-
-/** Linked list struct storing the content of the map (one line per node).
- * @param content Line from the map file stored as a string.
- * @param next Address of the next node.
- */
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 /** Struct for a point's x, y, and z coordinates and color information.
  * @param x X-axis.
@@ -91,6 +56,52 @@ typedef struct s_point
 	uint32_t	color;
 }	t_point;
 
+/** Configuration and helper variables.
+ * @param c Helper variable for argument validation.
+ * @param split Temporary array to store the result of ft_split() into.
+ * @param center_x Coordinate of the center of the screen on the X-axis.
+ * @param Center_y Coordinate of the center of the screen on the Y-axis.
+ * @param comparison_size Helper variable to compare the line_size to.
+ * @param fd File descriptor.
+ * @param i Iterator variable.
+ * @param j Iterator variable.
+ * @param k Iterator variable.
+ * @param line_size Number of points on one line (columns).
+ * @param lst_size Number of lines extracted (rows).
+ * @param m_width Width of the monitor.
+ * @param m_height Height of the monitor.
+ * @param img Allocated MLX image handle.
+ * @param p Struct for a point's x, y, and z coordinates and color information.
+ */
+typedef struct s_config
+{
+	char		*c;
+	char		**split;
+	int			center_x;
+	int			center_y;
+	int			comparison_size;
+	int			fd;
+	int			i;
+	int			j;
+	int			k;
+	int			line_size;
+	int			lst_size;
+	int32_t		m_width;
+	int32_t		m_height;
+	mlx_image_t	*img;
+	t_point		*p;
+}	t_config;
+
+/** Linked list struct storing the content of the map (one line per node).
+ * @param content Line from the map file stored as a string.
+ * @param next Address of the next node.
+ */
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
@@ -101,18 +112,29 @@ typedef struct s_point
  */
 int		ft_atoi_base(const char *s);
 
-/** Configurates the initial window.
- * @param mlx The MLX instance handle.
- * @param img Allocated MLX image handle.
- * @param cfg Struct containing basic variables for setting up the program.
+/** Sets the point matrix to initial positions.
+ * @param cfg Configuration and helper variables.
  * @return None.
  */
-void	ft_config_window(mlx_t *mlx,  mlx_image_t *img, t_config *cfg);
+void	ft_config_matrix(t_config *cfg);
+
+/** Configurates the initial window.
+ * @param mlx The MLX instance handle.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_config_window(mlx_t *mlx, t_config *cfg);
+
+/** Main hook for drawing the map.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_draw(void *param);
 
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param line Allocated string (line).
  * @param lst Allocated linked list for extracting the map file.
- * @param cfg Configuration variables of the array of points.
+ * @param cfg Configuration and helper variables.
  * @param flag Error flag to set the correct mlx_errno message.
  * @return EXIT FAILURE.
  */
@@ -120,10 +142,10 @@ int		ft_error_extract(char *line, t_list **lst, t_config *cfg, int flag);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
  * @param mlx The MLX instance handle.
- * @param p Array of map points and their attributes.
+ * @param cfg Configuration and helper variables.
  * @return Errno.
  */
-int		ft_error_img(mlx_t *mlx, t_point *p);
+int		ft_error_img(mlx_t *mlx, t_config *cfg);
 
 /**	Prints an error message according to mlx_errno.
  * @return Errno.
@@ -132,18 +154,17 @@ int		ft_error_msg(void);
 
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param lst Allocated linked list for extracting the map file.
- * @param p Array of map points and their attributes.
+ * @param cfg Configuration and helper variables.
  * @return EXIT FAILURE.
  */
-int		ft_error_sort(t_list **lst, t_point *p);
+int		ft_error_sort(t_list **lst, t_config *cfg);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
  * @param mlx The MLX instance handle.
- * @param img Allocated MLX image handle.
- * @param p Array of map points and their attributes.
+ * @param cfg Configuration and helper variables.
  * @return Errno.
  */
-int		ft_exit_terminate(mlx_t *mlx, mlx_image_t *img, t_point *p);
+int		ft_exit_terminate(mlx_t *mlx, t_config *cfg);
 
 /** Frees memory allocated by ft_split() for splitting each line.
  * @param line Allocated string (line).
@@ -160,11 +181,10 @@ char	*ft_get_next_line(int fd);
 /** Parses command line arguments.
  * @param argc Argument count.
  * @param argv Argument vector.
- * @param p Address of an array of map points and their attributes.
- * @param cfg Configuration variables of the array of points.
+ * @param cfg Configuration and helper variables.
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
-int		ft_parse(int argc, char **argv, t_point **p, t_config *cfg);
+int		ft_parse(int argc, char **argv, t_config *cfg);
 
 /** Callback function that executes when a key event occurs.
  * @param keydata Data related to the mlx_key_hook function.

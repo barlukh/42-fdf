@@ -6,18 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 10:59:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 14:39:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static int	ft_map_extract(t_config *cfg, t_list **lst);
-static int	ft_map_sort(t_list **lst, t_point *p, t_config *cfg);
-static int	ft_map_sort_matrix(char *point, t_point *p, t_config *cfg);
+static int	ft_map_sort(t_list **lst, t_config *cfg);
+static int	ft_map_sort_matrix(char *point, t_config *cfg);
 static int	ft_validate_arguments(int argc, char **argv, t_config *cfg);
 
-int	ft_parse(int argc, char **argv, t_point **p, t_config *cfg)
+int	ft_parse(int argc, char **argv, t_config *cfg)
 {
 	t_list	*lst;
 
@@ -31,14 +31,14 @@ int	ft_parse(int argc, char **argv, t_point **p, t_config *cfg)
 		return (EXIT_FAILURE);
 	if (ft_map_extract(cfg, &lst) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	*p = malloc(cfg->lst_size * cfg->line_size * sizeof(t_point));
-	if (!p || !*p)
+	cfg->p = malloc(cfg->lst_size * cfg->line_size * sizeof(t_point));
+	if (!cfg->p)
 	{
 		mlx_errno = MLX_MEMFAIL;
 		ft_lstclear(&lst);
 		return (EXIT_FAILURE);
 	}
-	if (ft_map_sort(&lst, *p, cfg) == EXIT_FAILURE)
+	if (ft_map_sort(&lst, cfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -70,7 +70,7 @@ static int	ft_map_extract(t_config *cfg, t_list **lst)
 }
 
 // Creates final struct for each point in the map.
-static int	ft_map_sort(t_list **lst, t_point *p, t_config *cfg)
+static int	ft_map_sort(t_list **lst, t_config *cfg)
 {
 	t_list	*temp;
 	char	**line;
@@ -80,13 +80,13 @@ static int	ft_map_sort(t_list **lst, t_point *p, t_config *cfg)
 	{
 		line = ft_split((char *)temp->content, ' ');
 		if (!line)
-			return (ft_error_sort(lst, p));
+			return (ft_error_sort(lst, cfg));
 		while (line[cfg->i] != NULL)
 		{
-			if (ft_map_sort_matrix(line[cfg->i], p, cfg) == EXIT_FAILURE)
+			if (ft_map_sort_matrix(line[cfg->i], cfg) == EXIT_FAILURE)
 			{
 				ft_free_split(line);
-				return (ft_error_sort(lst, p));
+				return (ft_error_sort(lst, cfg));
 			}
 		}
 		ft_free_split(line);
@@ -99,23 +99,23 @@ static int	ft_map_sort(t_list **lst, t_point *p, t_config *cfg)
 }
 
 // Sorts X-axis, Y-axis, Z-axis and color attributes into a point matrix.
-static int	ft_map_sort_matrix(char *point, t_point *p, t_config *cfg)
+static int	ft_map_sort_matrix(char *point, t_config *cfg)
 {
-	p[cfg->j].x = (cfg->j - (cfg->line_size / 2)) - (cfg->k * cfg->line_size);
-	p[cfg->j].y = cfg->k - (cfg->lst_size / 2);
+	cfg->p[cfg->j].x = (cfg->j - (cfg->line_size / 2)) - (cfg->k * cfg->line_size);
+	cfg->p[cfg->j].y = cfg->k - (cfg->lst_size / 2);
 	cfg->c = ft_strchr(point, ',');
 	if (cfg->c == NULL)
 	{
-		p[cfg->j].z = ft_atoi_base(point);
-		p[cfg->j].color = 0;
+		cfg->p[cfg->j].z = ft_atoi_base(point);
+		cfg->p[cfg->j].color = 0;
 	}
 	else
 	{
 		cfg->split = ft_split(point, ',');
 		if (cfg->split == NULL)
 			return (EXIT_FAILURE);
-		p[cfg->j].z = ft_atoi_base(cfg->split[0]);
-		p[cfg->j].color = (uint32_t)ft_atoi_base(cfg->split[1]);
+		cfg->p[cfg->j].z = ft_atoi_base(cfg->split[0]);
+		cfg->p[cfg->j].color = (uint32_t)ft_atoi_base(cfg->split[1]);
 		ft_free_split(cfg->split);
 	}
 	cfg->i++;
