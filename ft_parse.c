@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 09:22:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 10:59:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ static int	ft_map_sort(t_list **lst, t_point *p, t_config *cfg)
 // Sorts X-axis, Y-axis, Z-axis and color attributes into a point matrix.
 static int	ft_map_sort_matrix(char *point, t_point *p, t_config *cfg)
 {
-	p[cfg->j].x = cfg->j % cfg->line_size;
-	p[cfg->j].y = cfg->k;
+	p[cfg->j].x = (cfg->j - (cfg->line_size / 2)) - (cfg->k * cfg->line_size);
+	p[cfg->j].y = cfg->k - (cfg->lst_size / 2);
 	cfg->c = ft_strchr(point, ',');
 	if (cfg->c == NULL)
 	{
