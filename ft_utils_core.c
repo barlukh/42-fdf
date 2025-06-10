@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 16:57:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 19:51:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_config_matrix(t_config *cfg)
 {
+	int	old_x;
+	int	old_y;
+	
 	cfg->center_x = WIDTH / 2;
 	cfg->center_y = HEIGHT / 2;
 	cfg->i = 0;
@@ -21,6 +24,13 @@ void	ft_config_matrix(t_config *cfg)
 	{
 		cfg->p[cfg->i].x = cfg->center_x + (cfg->p[cfg->i].x * SPACE);
 		cfg->p[cfg->i].y = cfg->center_y + (cfg->p[cfg->i].y * SPACE);
+		cfg->p[cfg->i].z = cfg->p[cfg->i].z * SPACE;
+		old_x = cfg->p[cfg->i].x - cfg->center_x;
+		old_y = cfg->p[cfg->i].y - cfg->center_y;
+		cfg->p[cfg->i].x = (old_x - old_y) * 0.866;
+		cfg->p[cfg->i].y = (old_x + old_y) * 0.5 - cfg->p[cfg->i].z;
+		cfg->p[cfg->i].x += cfg->center_x;
+		cfg->p[cfg->i].y += cfg->center_y;
 		cfg->i++;
 	}
 }

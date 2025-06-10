@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 15:13:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/10 19:05:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
-# define SPACE 100
+# define SPACE 50
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -60,14 +60,22 @@ typedef struct s_point
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
  * @param center_x Coordinate of the center of the screen on the X-axis.
- * @param Center_y Coordinate of the center of the screen on the Y-axis.
+ * @param center_y Coordinate of the center of the screen on the Y-axis.
  * @param comparison_size Helper variable to compare the line_size to.
+ * @param dx Absolute difference between points (horizontal distance).
+ * @param dy Absolute difference between points, negated (vertical distance).
+ * @param err Error value tracking when to move in each direction.
+ * @param e2 Temporary variable used to decide whether to adjust x or y.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
  * @param k Iterator variable.
  * @param line_size Number of points on one line (columns).
  * @param lst_size Number of lines extracted (rows).
+ * @param sx Step direction for x.
+ * @param sy Step direction for y.
+ * @param x0 Variable for the Bresenham’s line algorithm.
+ * @param y0 Variable for the Bresenham’s line algorithm.
  * @param m_width Width of the monitor.
  * @param m_height Height of the monitor.
  * @param img Allocated MLX image handle.
@@ -80,12 +88,20 @@ typedef struct s_config
 	int			center_x;
 	int			center_y;
 	int			comparison_size;
+	int			dx;
+	int			dy;
+	int			err;
+	int			e2;
 	int			fd;
 	int			i;
 	int			j;
 	int			k;
 	int			line_size;
 	int			lst_size;
+	int			sx;
+	int			sy;
+	int			x0;
+	int			y0;
 	int32_t		m_width;
 	int32_t		m_height;
 	mlx_image_t	*img;
