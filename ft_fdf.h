@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 10:37:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 13:47:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@
 #  define BUFFER_SIZE 512
 # endif
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 2560
+# define HEIGHT 1440
 
-# define SPACE 10
+# define SPACE 20
 
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
 
-/** Struct for a point's x, y, and z coordinates and color information.
+/** Struct for x, y, and z coordinates and color information.
  * @param x X-axis.
  * @param y Y-axis.
  * @param z Z-axis.
@@ -79,6 +79,7 @@ typedef struct s_point
  * @param m_width Width of the monitor.
  * @param m_height Height of the monitor.
  * @param img Allocated MLX image handle.
+ * @param mlx The MLX instance handle.
  * @param p Struct for a point's x, y, and z coordinates and color information.
  */
 typedef struct s_config
@@ -105,6 +106,7 @@ typedef struct s_config
 	int32_t		m_width;
 	int32_t		m_height;
 	mlx_image_t	*img;
+	mlx_t		*mlx;
 	t_point		*p;
 }	t_config;
 
@@ -135,11 +137,10 @@ int		ft_atoi_base(const char *s);
 void	ft_config_matrix(t_config *cfg);
 
 /** Configurates the initial window.
- * @param mlx The MLX instance handle.
  * @param cfg Configuration and helper variables.
  * @return None.
  */
-void	ft_config_window(mlx_t *mlx, t_config *cfg);
+void	ft_config_window(t_config *cfg);
 
 /** Main hook for drawing the map.
  * @param cfg Configuration and helper variables.
@@ -157,11 +158,10 @@ void	ft_draw(void *param);
 int		ft_error_extract(char *line, t_list **lst, t_config *cfg, int flag);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
- * @param mlx The MLX instance handle.
  * @param cfg Configuration and helper variables.
  * @return Errno.
  */
-int		ft_error_img(mlx_t *mlx, t_config *cfg);
+int		ft_error_img(t_config *cfg);
 
 /**	Prints an error message according to mlx_errno.
  * @return Errno.
@@ -176,11 +176,10 @@ int		ft_error_msg(void);
 int		ft_error_sort(t_list **lst, t_config *cfg);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
- * @param mlx The MLX instance handle.
  * @param cfg Configuration and helper variables.
  * @return Errno.
  */
-int		ft_exit_terminate(mlx_t *mlx, t_config *cfg);
+int		ft_exit_terminate(t_config *cfg);
 
 /** Frees memory allocated by ft_split() for splitting each line.
  * @param line Allocated string (line).
@@ -193,14 +192,6 @@ void	ft_free_split(char **line);
  * @return Dynamically allocated line (string), NULL on error or EOF.
  */
 char	*ft_get_next_line(int fd);
-
-/** Parses command line arguments.
- * @param argc Argument count.
- * @param argv Argument vector.
- * @param cfg Configuration and helper variables.
- * @return 0 on SUCCESS, 1 on FAILURE.
- */
-int		ft_parse(int argc, char **argv, t_config *cfg);
 
 /** Callback function that executes when a key event occurs.
  * @param keydata Data related to the mlx_key_hook function.
@@ -241,6 +232,20 @@ int		ft_lstsize(t_list *lst);
  * @return Pointer to the destination memory area.
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/** Handles camera movement and updates 'p' coordinates accordingly.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_move_camera(t_config *cfg);
+
+/** Parses command line arguments.
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @param cfg Configuration and helper variables.
+ * @return 0 on SUCCESS, 1 on FAILURE.
+ */
+int		ft_parse(int argc, char **argv, t_config *cfg);
 
 /** Writes a string into the standard output followed by a newline character.
  * @param s String to write.
