@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:57:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 18:53:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 10:35:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	ft_draw(void *param)
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		mlx_put_pixel(cfg->img, cfg->p[cfg->i].x, cfg->p[cfg->i].y, 0xFFFFFF);
+		if ((cfg->p[cfg->i].x > 0 && cfg->p[cfg->i].x < WIDTH)
+			&& (cfg->p[cfg->i].y > 0 && cfg->p[cfg->i].y < HEIGHT))
+			mlx_put_pixel(cfg->img, cfg->p[cfg->i].x, cfg->p[cfg->i].y, 0xFFFFFF);
 		if (cfg->i % cfg->line_size < cfg->line_size - 1
 			&& cfg->i % cfg->lst_size < cfg->lst_size)
 		{
@@ -31,13 +33,13 @@ void	ft_draw(void *param)
 			cfg->y0 = cfg->p[cfg->i].y;
 			ft_draw_line(cfg, cfg->p[cfg->i + 1].x, cfg->p[cfg->i + 1].y);
 		}
-		if (cfg->i % cfg->lst_size < cfg->lst_size)
+		if (cfg->i < (cfg->line_size * (cfg->lst_size - 1)))
 		{
 			cfg->x0 = cfg->p[cfg->i].x;
 			cfg->y0 = cfg->p[cfg->i].y;
 			ft_draw_line(cfg,
-				cfg->p[(cfg->i + cfg->line_size) % cfg->line_size].x,
-				cfg->p[(cfg->i + cfg->line_size) % cfg->line_size].y);
+				cfg->p[(cfg->i + cfg->line_size)].x,
+				cfg->p[(cfg->i + cfg->line_size)].y);
 		}
 		cfg->i++;
 	}
@@ -46,8 +48,8 @@ void	ft_draw(void *param)
 // Draws a line based on the Bresenham’s line algorithm (1 / 2)
 static void	ft_draw_line(t_config *cfg, int x1, int y1)
 {
-	cfg->dx = fabs((float)x1 - (float)cfg->x0);
-	cfg->dy = -fabs((float)y1 - (float)cfg->y0);
+	cfg->dx = fabs((float)x1 - cfg->x0);
+	cfg->dy = -fabs((float)y1 - cfg->y0);
 	cfg->sx = 1;
 	if (cfg->x0 > x1)
 		cfg->sx = -1;
@@ -63,7 +65,8 @@ static void	ft_draw_line_loop(t_config *cfg, int x1, int y1)
 {
 	while (1)
 	{
-		mlx_put_pixel(cfg->img, cfg->x0, cfg->y0, cfg->p[cfg->i].color);
+		if ((cfg->x0 > 0 && cfg->x0 < WIDTH) && (cfg->y0 > 0 && cfg->y0 < HEIGHT))
+			mlx_put_pixel(cfg->img, cfg->x0, cfg->y0, cfg->p[cfg->i].color);
 		if (cfg->x0 == x1 && cfg->y0 == y1)
 			break ;
 		cfg->e2 = 2 * cfg->err;

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 19:05:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 10:37:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
-# define SPACE 50
+# define SPACE 10
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -50,9 +50,9 @@
  */
 typedef struct s_point
 {
-	int			x;
-	int			y;
-	int			z;
+	double		x;
+	double		y;
+	double		z;
 	uint32_t	color;
 }	t_point;
 

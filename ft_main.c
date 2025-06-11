@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 19:20:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 08:57:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	int i = 0;
 	while (i < (cfg.line_size * cfg.lst_size))
 	{
-		printf("[%d, %d, %d, %d] ", cfg.p[i].x, cfg.p[i].y, cfg.p[i].z, cfg.p[i].color);
+		printf("[%.3f, %.3f, %.3f, %d] ", cfg.p[i].x, cfg.p[i].y, cfg.p[i].z, cfg.p[i].color);
 		i++;
 		if (i % cfg.line_size == 0)
 		printf("\n");
