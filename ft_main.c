@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 13:41:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 17:12:45 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(cfg.mlx, ft_draw, &cfg);
 	mlx_loop(cfg.mlx);
 	// .......................................
-	// int i = 0;
-	// while (i < (cfg.line_size * cfg.lst_size))
-	// {
-	// 	printf("[%.3f, %.3f, %.3f, %d] ", cfg.p[i].x, cfg.p[i].y, cfg.p[i].z, cfg.p[i].color);
-	// 	i++;
-	// 	if (i % cfg.line_size == 0)
-	// 	printf("\n");
-	// }
+	//  int i = 0;
+	//  while (i < (cfg.line_size * cfg.lst_size))
+	//  {
+	//  	printf("[%.3f, %.3f, %.3f, %d] ", cfg.p[i].x, cfg.p[i].y, cfg.p[i].z, cfg.p[i].color);
+	//  	i++;
+	//  	if (i % cfg.line_size == 0)
+	//  	printf("\n");
+	//  }
 	// ........................................
 	return (ft_exit_terminate(&cfg));
 }
