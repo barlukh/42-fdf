@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/10 18:35:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 11:45:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ static int	ft_map_sort_matrix(char *point, t_config *cfg)
 			return (EXIT_FAILURE);
 		cfg->p[cfg->j].z = ft_atoi_base(cfg->split[0]);
 		cfg->p[cfg->j].color = (uint32_t)ft_atoi_base(cfg->split[1]);
+		cfg->p[cfg->j].color = cfg->p[cfg->j].color * 256 + 255;
 		ft_free_split(cfg->split);
 	}
 	cfg->i++;
