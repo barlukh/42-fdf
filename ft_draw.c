@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:57:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 11:40:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 16:30:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ void	ft_draw(void *param)
 			mlx_put_pixel(cfg->img, cfg->p[cfg->i].x, cfg->p[cfg->i].y,
 				cfg->p[cfg->i].color);
 		ft_draw_line_check(cfg);
+		cfg->i++;
+	}
+}
+
+void	ft_fill_screen(t_config *cfg)
+{
+	cfg->i = 0;
+	while (cfg->i < (int)cfg->img->height)
+	{
+		cfg->j = 0;
+		while (cfg->j < (int)cfg->img->width)
+		{
+			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
+			cfg->j++;
+		}
 		cfg->i++;
 	}
 }

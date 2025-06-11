@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 13:47:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/11 16:38:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@
 # define WIDTH 2560
 # define HEIGHT 1440
 
-# define SPACE 20
+# define SPACE 5
+
+# define SPEED 30
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -181,6 +183,12 @@ int		ft_error_sort(t_list **lst, t_config *cfg);
  */
 int		ft_exit_terminate(t_config *cfg);
 
+/** Sets every pixel on the screen to a specified color.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_fill_screen(t_config *cfg);
+
 /** Frees memory allocated by ft_split() for splitting each line.
  * @param line Allocated string (line).
  * @return None.
@@ -232,12 +240,6 @@ int		ft_lstsize(t_list *lst);
  * @return Pointer to the destination memory area.
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-
-/** Handles camera movement and updates 'p' coordinates accordingly.
- * @param cfg Configuration and helper variables.
- * @return None.
- */
-void	ft_move_camera(t_config *cfg);
 
 /** Parses command line arguments.
  * @param argc Argument count.
