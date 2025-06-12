@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 16:57:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 17:02:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@
 #  define BUFFER_SIZE 512
 # endif
 
-# define WIDTH 2560
-# define HEIGHT 1440
-
-# define SPACE 5
+# define WIDTH 3000
+# define HEIGHT 1800
 
 # define SPEED 30
 
@@ -61,6 +59,11 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
+ * @param x_max Maximum X value for a bounding box.
+ * @param x_min Minimum X value for a bounding box.
+ * @param xy_bounder The largest value that the bounding box is based on.
+ * @param y_max Maximum Y value for a bounding box.
+ * @param y_min Minimum Y value for a bounding box.
  * @param center_x Coordinate of the center of the screen on the X-axis.
  * @param center_y Coordinate of the center of the screen on the Y-axis.
  * @param comparison_size Helper variable to compare the line_size to.
@@ -74,6 +77,7 @@ typedef struct s_point
  * @param k Iterator variable.
  * @param line_size Number of points on one line (columns).
  * @param lst_size Number of lines extracted (rows).
+ * @param space Space between pixels on the initial draw.
  * @param sx Step direction for x.
  * @param sy Step direction for y.
  * @param x0 Variable for the Bresenham’s line algorithm.
@@ -88,6 +92,13 @@ typedef struct s_config
 {
 	char		*c;
 	char		**split;
+	double		x_max;
+	double		x_min;
+	double		x_temp;
+	double		xy_bounder;
+	double		y_max;
+	double		y_min;
+	double		y_temp;
 	int			center_x;
 	int			center_y;
 	int			comparison_size;
@@ -101,6 +112,7 @@ typedef struct s_config
 	int			k;
 	int			line_size;
 	int			lst_size;
+	int			space;
 	int			sx;
 	int			sy;
 	int			x0;

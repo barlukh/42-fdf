@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 16:58:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 15:15:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,6 @@ int	ft_atoi_base(const char *s)
 		s++;
 	}
 	return (n);
-}
-
-void	ft_config_matrix(t_config *cfg)
-{
-	int	old_x;
-	int	old_y;
-
-	cfg->center_x = WIDTH / 2;
-	cfg->center_y = HEIGHT / 2;
-	cfg->i = 0;
-	while (cfg->i < (cfg->line_size * cfg->lst_size))
-	{
-		old_x = cfg->p[cfg->i].x;
-		old_y = cfg->p[cfg->i].y;
-		cfg->p[cfg->i].x = (old_x + old_y) * cos(120);
-		cfg->p[cfg->i].y = (old_y - old_x) * sin(120) - cfg->p[cfg->i].z;
-		cfg->p[cfg->i].x = (cfg->center_x + (cfg->p[cfg->i].x * SPACE));
-		cfg->p[cfg->i].y = cfg->center_y + cfg->center_y / 2
-			+ (cfg->p[cfg->i].y * SPACE);
-		cfg->i++;
-	}
-}
-
-void	ft_config_window(t_config *cfg)
-{
-	mlx_get_monitor_size(0, &cfg->m_width, &cfg->m_height);
-	mlx_set_window_pos(cfg->mlx, (cfg->m_width - WIDTH) / 2,
-		(cfg->m_height - HEIGHT) / 2);
-	mlx_set_window_limit(cfg->mlx, cfg->m_width / 4, cfg->m_height / 4,
-		cfg->m_width - (cfg->m_width / 10),
-		cfg->m_height - (cfg->m_height / 10));
-	ft_fill_screen(cfg);
 }
 
 void	ft_free_split(char **line)
