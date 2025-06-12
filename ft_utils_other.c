@@ -6,15 +6,15 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 20:19:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 20:53:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-static void	ft_atoi_base_loop(char *s, int base, int *n);
+static void	ft_atoi_base_loop(const char *s, int base, long long *n);
 
-int ft_atoi_base(const char *s)
+int	ft_atoi_base(const char *s)
 {
 	long long	n;
 	int			base;
@@ -67,7 +67,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-static void	ft_atoi_base_loop(char *s, int base, int *n)
+static void	ft_atoi_base_loop(const char *s, int base, long long *n)
 {
 	while (*s)
 	{
@@ -79,7 +79,7 @@ static void	ft_atoi_base_loop(char *s, int base, int *n)
 		else if (base == 16 && *s >= 'a' && *s <= 'f')
 			*n += *s - 'a' + 10;
 		else
-			break;
+			break ;
 		s++;
 	}
 }
