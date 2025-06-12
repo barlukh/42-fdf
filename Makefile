@@ -6,24 +6,26 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/12 15:16:25 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/12 20:51:30 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		fdf
 BONUS =		fdf_bonus
 CC = 		cc
-CFLAGS =	-Wall -Werror -Wextra 
+CFLAGS =	-Wall -Werror -Wextra -O3
 LFLAGS =	-ldl -lglfw -lm -lmlx42 -pthread
 RM = 		rm -f
 
 HDRS =		ft_fdf.h
 
-OBJS =		$(SRCS:.c=.o)
+OBJ_DIR = 	objects
 
-OBJS_B =	${SRCS_B:.c=.o}
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-SRCS =		ft_camera.c \
+OBJS_B = $(SRCS_B:%.c=$(OBJ_DIR)/%.o)
+
+SRCS = 		ft_camera.c \
 			ft_config.c \
 			ft_draw.c \
 			ft_get_next_line.c \
@@ -35,7 +37,7 @@ SRCS =		ft_camera.c \
 			ft_utils_other.c \
 			ft_utils_string.c
 
-SRCS_B =	ft_camera_bonus.c \
+SRCS_B = 	ft_camera_bonus.c \
 			ft_config.c \
 			ft_draw.c \
 			ft_get_next_line.c \
@@ -47,19 +49,21 @@ SRCS_B =	ft_camera_bonus.c \
 			ft_utils_other.c \
 			ft_utils_string.c
 
-all: $(NAME)
+all: $(OBJ_DIR) $(OBJS) $(NAME)
 
-bonus: $(BONUS)
+bonus: $(OBJ_DIR) $(OBJS_B) $(BONUS)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.c $(HDRS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 $(BONUS): $(OBJS_B)
 	$(CC) $(CFLAGS) $(OBJS_B) -o $(BONUS) $(LFLAGS)
-
-$(OBJS): $(HDRS)
-
-$(OBJS_B): $(HDRS)
 
 clean:
 	$(RM) $(OBJS)
