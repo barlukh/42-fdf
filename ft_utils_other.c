@@ -6,38 +6,35 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 15:15:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 20:19:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-int	ft_atoi_base(const char *s)
+static void	ft_atoi_base_loop(char *s, int base, int *n);
+
+int ft_atoi_base(const char *s)
 {
-	int	n;
-	int	base;
+	long long	n;
+	int			base;
+	int			sign;
 
 	n = 0;
 	base = 10;
+	sign = 1;
+	if (*s == '-')
+	{
+		sign = -1;
+		s++;
+	}
 	if (*s == '0' && (*(s + 1) == 'x' || *(s + 1) == 'X'))
 	{
 		base = 16;
 		s += 2;
 	}
-	while (*s)
-	{
-		n *= base;
-		if (*s >= '0' && *s <= '9')
-			n += *s - '0';
-		else if (base == 16 && *s >= 'A' && *s <= 'F')
-			n += *s - 'A' + 10;
-		else if (base == 16 && *s >= 'a' && *s <= 'f')
-			n += *s - 'a' + 10;
-		else
-			break ;
-		s++;
-	}
-	return (n);
+	ft_atoi_base_loop(s, base, &n);
+	return (n * sign);
 }
 
 void	ft_free_split(char **line)
@@ -68,4 +65,21 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		i++;
 	}
 	return (dest);
+}
+
+static void	ft_atoi_base_loop(char *s, int base, int *n)
+{
+	while (*s)
+	{
+		*n *= base;
+		if (*s >= '0' && *s <= '9')
+			*n += *s - '0';
+		else if (base == 16 && *s >= 'A' && *s <= 'F')
+			*n += *s - 'A' + 10;
+		else if (base == 16 && *s >= 'a' && *s <= 'f')
+			*n += *s - 'a' + 10;
+		else
+			break;
+		s++;
+	}
 }
