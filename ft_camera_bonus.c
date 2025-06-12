@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 18:42:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 20:56:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	cfg = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(cfg->mlx);
-	if (keydata.key == MLX_KEY_W &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_W
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_move_camera_y(cfg, keydata);
-	if (keydata.key == MLX_KEY_S &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_S
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_move_camera_y(cfg, keydata);
-	if (keydata.key == MLX_KEY_A &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_A
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_move_camera_x(cfg, keydata);
-	if (keydata.key == MLX_KEY_D &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_D
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_move_camera_x(cfg, keydata);
-	if (keydata.key == MLX_KEY_UP &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_UP
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_zoom(cfg, keydata);
-	if (keydata.key == MLX_KEY_DOWN &&
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	if (keydata.key == MLX_KEY_DOWN
+		&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		ft_zoom(cfg, keydata);
 }
 
@@ -95,8 +95,10 @@ static void	ft_zoom(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->center_x + (cfg->p[cfg->i].x - cfg->center_x) * 1.2;
-			cfg->p[cfg->i].y = cfg->center_y + (cfg->p[cfg->i].y - cfg->center_y) * 1.2;
+			cfg->p[cfg->i].x = cfg->center_x
+				+ (cfg->p[cfg->i].x - cfg->center_x) * 1.2;
+			cfg->p[cfg->i].y = cfg->center_y
+				+ (cfg->p[cfg->i].y - cfg->center_y) * 1.2;
 			cfg->i++;
 		}
 	}
@@ -104,8 +106,10 @@ static void	ft_zoom(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->center_x + (cfg->p[cfg->i].x - cfg->center_x) * 0.8;
-			cfg->p[cfg->i].y = cfg->center_y + (cfg->p[cfg->i].y - cfg->center_y) * 0.8;
+			cfg->p[cfg->i].x = cfg->center_x
+				+ (cfg->p[cfg->i].x - cfg->center_x) * 0.8;
+			cfg->p[cfg->i].y = cfg->center_y
+				+ (cfg->p[cfg->i].y - cfg->center_y) * 0.8;
 			cfg->i++;
 		}
 	}
