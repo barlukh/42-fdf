@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 07:45:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 15:29:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,12 @@ void	ft_free_split(char **line)
 	free(line);
 }
 
-void	ft_fill_screen(t_config *cfg)
+int	ft_exit_terminate(t_config *cfg)
 {
-	cfg->i = 0;
-	while (cfg->i < (int)cfg->img->height)
-	{
-		cfg->j = 0;
-		while (cfg->j < (int)cfg->img->width)
-		{
-			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
-			cfg->j++;
-		}
-		cfg->i++;
-	}
+	ft_putstr(mlx_strerror(mlx_errno));
+	free(cfg->p);
+	free(cfg->pr);
+	mlx_delete_image(cfg->mlx, cfg->img);
+	mlx_terminate(cfg->mlx);
+	return (mlx_errno);
 }

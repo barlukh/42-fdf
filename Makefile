@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/13 10:13:25 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/13 16:21:20 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS = 		ft_config.c \
 			ft_projections.c \
 			ft_split.c \
 			ft_transformations.c \
-			ft_utils_exit.c \
+			ft_utils_errors.c \
 			ft_utils_list.c \
 			ft_utils_other.c \
 			ft_utils_string.c \
@@ -46,7 +46,7 @@ SRCS_B = 	ft_config.c \
 			ft_projections.c \
 			ft_split.c \
 			ft_transformations_bonus.c \
-			ft_utils_exit.c \
+			ft_utils_errors.c \
 			ft_utils_list.c \
 			ft_utils_other.c \
 			ft_utils_string.c \
