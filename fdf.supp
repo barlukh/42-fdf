@@ -1372,3 +1372,21 @@
    fun:ft_error_img
    fun:main
 }
+{
+   suppression_82
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:malloc
+   fun:_dl_close_worker.part.0.isra.0
+   fun:_dl_close_worker
+   fun:_dl_close
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+   fun:_dlerror_run
+   fun:dlclose@@GLIBC_2.34
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+   fun:mlx_terminate
+   fun:ft_error_pr
+   fun:main
+}
