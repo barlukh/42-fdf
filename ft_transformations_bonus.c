@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 21:24:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 21:48:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata)
 {
 	ft_fill_screen(cfg);
 	cfg->i = 0;
-	if (keydata.key == MLX_KEY_D)
+	if (keydata.key == MLX_KEY_A)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
@@ -59,7 +59,7 @@ static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata)
 			cfg->i++;
 		}
 	}
-	if (keydata.key == MLX_KEY_A)
+	if (keydata.key == MLX_KEY_D)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
@@ -73,7 +73,7 @@ static void	ft_translation_y(t_config *cfg, mlx_key_data_t keydata)
 {
 	ft_fill_screen(cfg);
 	cfg->i = 0;
-	if (keydata.key == MLX_KEY_S)
+	if (keydata.key == MLX_KEY_W)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
@@ -81,7 +81,7 @@ static void	ft_translation_y(t_config *cfg, mlx_key_data_t keydata)
 			cfg->i++;
 		}
 	}
-	if (keydata.key == MLX_KEY_W)
+	if (keydata.key == MLX_KEY_S)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
