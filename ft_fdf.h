@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 07:18:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 11:12:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@
 # define WIDTH 3000
 # define HEIGHT 1800
 
-# define SPEED 30
+# define TRANSLATION 30
+# define ENLARGEMENT 1.2
+# define CONTRACTION 0.8
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -59,11 +61,13 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
- * @param x_max Maximum X value for a bounding box.
- * @param x_min Minimum X value for a bounding box.
  * @param xy_bounder The largest value that the bounding box is based on.
- * @param y_max Maximum Y value for a bounding box.
+ * @param x_min Minimum X value for a bounding box.
+ * @param x_max Maximum X value for a bounding box.
+ * @param x_temp Temporary variable for storing X value.
  * @param y_min Minimum Y value for a bounding box.
+ * @param y_max Maximum Y value for a bounding box.
+ * @param y_temp Temporary variable for storing Y value.
  * @param center_x Coordinate of the center of the screen on the X-axis.
  * @param center_y Coordinate of the center of the screen on the Y-axis.
  * @param comparison_size Helper variable to compare the line_size to.
@@ -92,12 +96,12 @@ typedef struct s_config
 {
 	char		*c;
 	char		**split;
-	double		x_max;
-	double		x_min;
-	double		x_temp;
 	double		xy_bounder;
-	double		y_max;
+	double		x_min;
+	double		x_max;
+	double		x_temp;
 	double		y_min;
+	double		y_max;
 	double		y_temp;
 	int			center_x;
 	int			center_y;
@@ -144,11 +148,12 @@ typedef struct s_list
  */
 int		ft_atoi_base(const char *s);
 
-/** Sets the point matrix to initial positions.
+/** Sets the point matrix to a specified projection.
  * @param cfg Configuration and helper variables.
+ * @param f Function for setting a chosen projection.
  * @return None.
  */
-void	ft_config_matrix(t_config *cfg);
+void	ft_config_matrix(t_config *cfg, void (*f)(t_config *));
 
 /** Configurates the initial window.
  * @param cfg Configuration and helper variables.
@@ -260,6 +265,18 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
 int		ft_parse(int argc, char **argv, t_config *cfg);
+
+/** Converts coordinates into dimetric projection.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_dimetric(t_config *cfg);
+
+/** Converts coordinates into isometric projection.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_isometric(t_config *cfg);
 
 /** Writes a string into the standard output followed by a newline character.
  * @param s String to write.
