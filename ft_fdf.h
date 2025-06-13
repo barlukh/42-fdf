@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 17:02:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:18:59 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct s_list
 //------------------------------------------------------------------------------
 
 /** Converts a string to an integer (detects hex values).
- * @param nptr String to be converted.
+ * @param s String to be converted.
  * @return Converted string as an int.
  */
 int		ft_atoi_base(const char *s);
@@ -157,7 +157,7 @@ void	ft_config_matrix(t_config *cfg);
 void	ft_config_window(t_config *cfg);
 
 /** Main hook for drawing the map.
- * @param cfg Configuration and helper variables.
+ * @param param An additional optional parameter.
  * @return None.
  */
 void	ft_draw(void *param);

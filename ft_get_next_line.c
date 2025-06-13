@@ -6,15 +6,15 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 13:43:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:28:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
+static char	*ft_substr_gnl(char *s, size_t len);
 static char	*ft_read_line(int fd, char *buf, char **cache, char **line_end);
 static char	*ft_strjoin_gnl(char *buf, char *cache, ssize_t read_bytes);
-static char	*ft_substr_gnl(char *s, size_t len);
 
 char	*ft_get_next_line(int fd)
 {
@@ -38,6 +38,28 @@ char	*ft_get_next_line(int fd)
 	ft_memcpy(buf, line_end + 1, ft_strchr(line_end + 1, '\0') - line_end);
 	free(cache);
 	return (new_line);
+}
+
+// Creates a new substring of specified length from a string.
+static char	*ft_substr_gnl(char *s, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
+	{
+		mlx_errno = MLX_MEMFAIL;
+		return (NULL);
+	}
+	i = 0;
+	while (i < len)
+	{
+		substr[i] = s[i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
 }
 
 // Reads from a file looking for a linebreak or EOF.
@@ -90,26 +112,4 @@ static char	*ft_strjoin_gnl(char *buf, char *cache, ssize_t read_bytes)
 	new_cache[cache_len + read_bytes] = '\0';
 	free(cache);
 	return (new_cache);
-}
-
-// Creates a new substring of specified length from a string.
-static char	*ft_substr_gnl(char *s, size_t len)
-{
-	char	*substr;
-	size_t	i;
-
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-	{
-		mlx_errno = MLX_MEMFAIL;
-		return (NULL);
-	}
-	i = 0;
-	while (i < len)
-	{
-		substr[i] = s[i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
 }

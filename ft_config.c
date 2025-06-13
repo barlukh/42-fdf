@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 17:31:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:14:31 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ static void	ft_boundig_box_draw(t_config *cfg)
 		cfg->p[cfg->i].x = cfg->center_x + (cfg->p[cfg->i].x * cfg->space);
 		if (fabs(cfg->y_min) > fabs(cfg->y_max))
 		{
-			cfg->p[cfg->i].y = cfg->center_y + fabs(2 * cfg->y_min)
-				+ (cfg->p[cfg->i].y * cfg->space);
+			cfg->p[cfg->i].y = cfg->center_y + ((cfg->p[cfg->i].y - cfg->y_min)
+			- (cfg->y_temp / 2)) * cfg->space;
 		}
 		else
-			cfg->p[cfg->i].y = cfg->center_y + fabs(2 * cfg->y_max)
-				+ (cfg->p[cfg->i].y * cfg->space);
+			cfg->p[cfg->i].y = cfg->center_y + ((cfg->p[cfg->i].y - cfg->y_max)
+			+ (cfg->y_temp / 2)) * cfg->space;
 		cfg->i++;
 	}
 }

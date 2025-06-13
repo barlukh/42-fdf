@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:57:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 16:53:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:30:10 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static void	ft_draw_line_check(t_config *cfg);
-static void	ft_draw_line_exec(t_config *cfg, int x1, int y1);
+static void	ft_draw_line(t_config *cfg, int x1, int y1);
 static void	ft_draw_line_loop(t_config *cfg, int x1, int y1);
 
 void	ft_draw(void *param)
@@ -33,22 +33,7 @@ void	ft_draw(void *param)
 	}
 }
 
-void	ft_fill_screen(t_config *cfg)
-{
-	cfg->i = 0;
-	while (cfg->i < (int)cfg->img->height)
-	{
-		cfg->j = 0;
-		while (cfg->j < (int)cfg->img->width)
-		{
-			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
-			cfg->j++;
-		}
-		cfg->i++;
-	}
-}
-
-// Checks for valid coordinates to draw a line between them.
+// Checks for a validity of coordinates to draw a line between them.
 static void	ft_draw_line_check(t_config *cfg)
 {
 	if (cfg->i % cfg->line_size < cfg->line_size - 1
@@ -56,20 +41,20 @@ static void	ft_draw_line_check(t_config *cfg)
 	{
 		cfg->x0 = cfg->p[cfg->i].x;
 		cfg->y0 = cfg->p[cfg->i].y;
-		ft_draw_line_exec(cfg, cfg->p[cfg->i + 1].x, cfg->p[cfg->i + 1].y);
+		ft_draw_line(cfg, cfg->p[cfg->i + 1].x, cfg->p[cfg->i + 1].y);
 	}
 	if (cfg->i < (cfg->line_size * (cfg->lst_size - 1)))
 	{
 		cfg->x0 = cfg->p[cfg->i].x;
 		cfg->y0 = cfg->p[cfg->i].y;
-		ft_draw_line_exec(cfg,
+		ft_draw_line(cfg,
 			cfg->p[(cfg->i + cfg->line_size)].x,
 			cfg->p[(cfg->i + cfg->line_size)].y);
 	}
 }
 
-// Draws a line based on the Bresenham’s line algorithm (1 / 2).
-static void	ft_draw_line_exec(t_config *cfg, int x1, int y1)
+// Draws a line based on the Bresenham’s line algorithm.
+static void	ft_draw_line(t_config *cfg, int x1, int y1)
 {
 	cfg->dx = fabs((float)x1 - cfg->x0);
 	cfg->dy = -fabs((float)y1 - cfg->y0);
@@ -83,7 +68,7 @@ static void	ft_draw_line_exec(t_config *cfg, int x1, int y1)
 	ft_draw_line_loop(cfg, x1, y1);
 }
 
-// Draws a line based on the Bresenham’s line algorithm (2 / 2).
+// Main loop for the ft_draw_line() function.
 static void	ft_draw_line_loop(t_config *cfg, int x1, int y1)
 {
 	while (1)
@@ -104,5 +89,20 @@ static void	ft_draw_line_loop(t_config *cfg, int x1, int y1)
 			cfg->err += cfg->dx;
 			cfg->y0 += cfg->sy;
 		}
+	}
+}
+
+void	ft_fill_screen(t_config *cfg)
+{
+	cfg->i = 0;
+	while (cfg->i < (int)cfg->img->height)
+	{
+		cfg->j = 0;
+		while (cfg->j < (int)cfg->img->width)
+		{
+			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
+			cfg->j++;
+		}
+		cfg->i++;
 	}
 }

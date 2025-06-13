@@ -6,16 +6,16 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 13:43:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:27:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
+static int	ft_validate_arguments(int argc, char **argv, t_config *cfg);
 static int	ft_map_extract(t_config *cfg, t_list **lst);
 static int	ft_map_sort(t_list **lst, t_config *cfg);
 static int	ft_map_sort_matrix(char *point, t_config *cfg);
-static int	ft_validate_arguments(int argc, char **argv, t_config *cfg);
 
 int	ft_parse(int argc, char **argv, t_config *cfg)
 {
@@ -40,6 +40,35 @@ int	ft_parse(int argc, char **argv, t_config *cfg)
 	}
 	if (ft_map_sort(&lst, cfg) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+// Validates arguments passed from the command line.
+static int	ft_validate_arguments(int argc, char **argv, t_config *cfg)
+{
+	if (argc != 2)
+	{
+		mlx_errno = MLX_INVARGS;
+		return (EXIT_FAILURE);
+	}
+	cfg->c = ft_strchr(argv[1], '.');
+	if (!cfg->c || argv[1][0] == '.')
+	{
+		mlx_errno = MLX_INVARGS;
+		return (EXIT_FAILURE);
+	}
+	if ((*(cfg->c + 1) != 'f' || *(cfg->c + 2) != 'd'
+			|| *(cfg->c + 3) != 'f' || *(cfg->c + 4) != '\0'))
+	{
+		mlx_errno = MLX_INVEXT;
+		return (EXIT_FAILURE);
+	}
+	cfg->fd = open(argv[1], O_RDONLY);
+	if (cfg->fd == -1)
+	{
+		mlx_errno = MLX_INVFILE;
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -122,34 +151,5 @@ static int	ft_map_sort_matrix(char *point, t_config *cfg)
 	}
 	cfg->i++;
 	cfg->j++;
-	return (EXIT_SUCCESS);
-}
-
-// Validates arguments passed from the command line.
-static int	ft_validate_arguments(int argc, char **argv, t_config *cfg)
-{
-	if (argc != 2)
-	{
-		mlx_errno = MLX_INVARGS;
-		return (EXIT_FAILURE);
-	}
-	cfg->c = ft_strchr(argv[1], '.');
-	if (!cfg->c || argv[1][0] == '.')
-	{
-		mlx_errno = MLX_INVARGS;
-		return (EXIT_FAILURE);
-	}
-	if ((*(cfg->c + 1) != 'f' || *(cfg->c + 2) != 'd'
-			|| *(cfg->c + 3) != 'f' || *(cfg->c + 4) != '\0'))
-	{
-		mlx_errno = MLX_INVEXT;
-		return (EXIT_FAILURE);
-	}
-	cfg->fd = open(argv[1], O_RDONLY);
-	if (cfg->fd == -1)
-	{
-		mlx_errno = MLX_INVFILE;
-		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

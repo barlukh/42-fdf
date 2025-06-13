@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 20:53:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:24:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ int	ft_atoi_base(const char *s)
 	return (n * sign);
 }
 
+// Main loop for the ft_atoi_base() function.
+static void	ft_atoi_base_loop(const char *s, int base, long long *n)
+{
+	while (*s)
+	{
+		*n *= base;
+		if (*s >= '0' && *s <= '9')
+			*n += *s - '0';
+		else if (base == 16 && *s >= 'A' && *s <= 'F')
+			*n += *s - 'A' + 10;
+		else if (base == 16 && *s >= 'a' && *s <= 'f')
+			*n += *s - 'a' + 10;
+		else
+			break ;
+		s++;
+	}
+}
+
 void	ft_free_split(char **line)
 {
 	size_t	i;
@@ -65,21 +83,4 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		i++;
 	}
 	return (dest);
-}
-
-static void	ft_atoi_base_loop(const char *s, int base, long long *n)
-{
-	while (*s)
-	{
-		*n *= base;
-		if (*s >= '0' && *s <= '9')
-			*n += *s - '0';
-		else if (base == 16 && *s >= 'A' && *s <= 'F')
-			*n += *s - 'A' + 10;
-		else if (base == 16 && *s >= 'a' && *s <= 'f')
-			*n += *s - 'a' + 10;
-		else
-			break ;
-		s++;
-	}
 }

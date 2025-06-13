@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/12 15:57:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/12 20:36:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	 	printf("\n");
 	 }
 	 printf("[%.3f, %.3f, %.3f, %.3f]\n", cfg.x_min, cfg.x_max, cfg.y_min, cfg.y_max);
-	 printf("%.3f\n", cfg.xy_bounder);
+	 printf("%.3f\n", cfg.y_temp);
 	 printf("%d\n", cfg.space);
 	// ........................................
 	return (ft_exit_terminate(&cfg));
