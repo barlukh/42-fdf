@@ -6,14 +6,14 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/13 08:12:59 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/13 10:13:25 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		fdf
 BONUS =		fdf_bonus
 CC = 		cc
-CFLAGS =	-Wall -Werror -Wextra -O3
+CFLAGS =	-Wall -Werror -Wextra -O2
 LFLAGS =	-ldl -lglfw -lm -lmlx42 -pthread
 RM = 		rm -f
 
@@ -30,6 +30,7 @@ SRCS = 		ft_config.c \
 			ft_get_next_line.c \
 			ft_main.c \
 			ft_parse.c \
+			ft_projections.c \
 			ft_split.c \
 			ft_transformations.c \
 			ft_utils_exit.c \
@@ -42,6 +43,7 @@ SRCS_B = 	ft_config.c \
 			ft_get_next_line.c \
 			ft_main.c \
 			ft_parse.c \
+			ft_projections.c \
 			ft_split.c \
 			ft_transformations_bonus.c \
 			ft_utils_exit.c \
