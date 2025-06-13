@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/12 20:51:30 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/13 08:12:59 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,29 +25,29 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 OBJS_B = $(SRCS_B:%.c=$(OBJ_DIR)/%.o)
 
-SRCS = 		ft_camera.c \
-			ft_config.c \
+SRCS = 		ft_config.c \
 			ft_draw.c \
 			ft_get_next_line.c \
 			ft_main.c \
 			ft_parse.c \
 			ft_split.c \
+			ft_transformations.c \
 			ft_utils_exit.c \
 			ft_utils_list.c \
 			ft_utils_other.c \
-			ft_utils_string.c
+			ft_utils_string.c \
 
-SRCS_B = 	ft_camera_bonus.c \
-			ft_config.c \
+SRCS_B = 	ft_config.c \
 			ft_draw.c \
 			ft_get_next_line.c \
 			ft_main.c \
 			ft_parse.c \
 			ft_split.c \
+			ft_transformations_bonus.c \
 			ft_utils_exit.c \
 			ft_utils_list.c \
 			ft_utils_other.c \
-			ft_utils_string.c
+			ft_utils_string.c \
 
 all: $(OBJ_DIR) $(OBJS) $(NAME)
 
