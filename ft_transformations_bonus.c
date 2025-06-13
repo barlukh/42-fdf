@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 17:36:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 21:24:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_C && (keydata.action == MLX_PRESS))
 		ft_config_matrix(cfg, ft_projection_isometric);
 	if (keydata.key == MLX_KEY_V && (keydata.action == MLX_PRESS))
-		ft_config_matrix(cfg, ft_projection_dimetric);
+		ft_config_matrix(cfg, ft_projection_trimetric);
 }
 
 static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata)

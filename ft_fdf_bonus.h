@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 20:47:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 21:23:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,17 +272,17 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
  */
 int		ft_parse(int argc, char **argv, t_config *cfg);
 
-/** Converts coordinates into dimetric projection.
- * @param cfg Configuration and helper variables.
- * @return None.
- */
-void	ft_projection_dimetric(t_config *cfg);
-
 /** Converts coordinates into isometric projection.
  * @param cfg Configuration and helper variables.
  * @return None.
  */
 void	ft_projection_isometric(t_config *cfg);
+
+/** Converts coordinates into trimetric projection.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_trimetric(t_config *cfg);
 
 /** Writes a string into the standard output followed by a newline character.
  * @param s String to write.
