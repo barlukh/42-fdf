@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 15:31:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 16:56:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 #  define BUFFER_SIZE 512
 # endif
 
-# define WIDTH 3000
-# define HEIGHT 1800
+# define WIDTH 2000
+# define HEIGHT 2000
 
 # define TRANSLATION 30
 # define ENLARGEMENT 1.2
@@ -61,7 +61,6 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
- * @param xy_bounder The largest value that the bounding box is based on.
  * @param x_min Minimum X value for a bounding box.
  * @param x_max Maximum X value for a bounding box.
  * @param x_temp Temporary variable for storing X value.
@@ -90,14 +89,13 @@ typedef struct s_point
  * @param m_height Height of the monitor.
  * @param img Allocated MLX image handle.
  * @param mlx The MLX instance handle.
- * @param p Struct storing original x, y, and z coordinates and color information.
- * @param pr Copied 'p' struct used to show different projections.
+ * @param p Original x, y, and z coordinates and color information.
+ * @param pr Copied 'p' struct used for calculating different projections.
  */
 typedef struct s_config
 {
 	char		*c;
 	char		**split;
-	double		xy_bounder;
 	double		x_min;
 	double		x_max;
 	double		x_temp;
