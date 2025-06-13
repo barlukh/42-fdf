@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 11:13:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 16:25:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static void	ft_bounding_box(t_config *cfg)
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		cfg->p[cfg->i].x = cfg->center_x + (cfg->p[cfg->i].x * cfg->space);
+		cfg->pr[cfg->i].x = cfg->center_x + (cfg->pr[cfg->i].x * cfg->space);
 		if (fabs(cfg->y_min) > fabs(cfg->y_max))
 		{
-			cfg->p[cfg->i].y = cfg->center_y + ((cfg->p[cfg->i].y - cfg->y_min)
-			- (cfg->y_temp / 2)) * cfg->space;
+			cfg->pr[cfg->i].y = cfg->center_y + ((cfg->pr[cfg->i].y
+						- cfg->y_min) - (cfg->y_temp / 2)) * cfg->space;
 		}
 		else
-			cfg->p[cfg->i].y = cfg->center_y + ((cfg->p[cfg->i].y - cfg->y_max)
-			+ (cfg->y_temp / 2)) * cfg->space;
+			cfg->pr[cfg->i].y = cfg->center_y + ((cfg->pr[cfg->i].y
+						- cfg->y_max) + (cfg->y_temp / 2)) * cfg->space;
 		cfg->i++;
 	}
 }

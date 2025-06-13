@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 11:01:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 16:13:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int	main(int argc, char **argv)
 	if (!cfg.img)
 		return (ft_error_img(&cfg));
 	ft_config_window(&cfg);
+	cfg.pr = malloc(cfg.lst_size * cfg.line_size * sizeof(t_point));
+	if (!cfg.pr)
+		return (ft_error_pr(&cfg));
 	ft_config_matrix(&cfg, ft_projection_isometric);
 	mlx_image_to_window(cfg.mlx, cfg.img, 0, 0);
 	mlx_key_hook(cfg.mlx, ft_key_hook, &cfg);

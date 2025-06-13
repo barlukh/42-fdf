@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 11:14:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 16:20:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->p[cfg->i].x - TRANSLATION;
+			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x - TRANSLATION;
 			cfg->i++;
 		}
 	}
@@ -63,7 +63,7 @@ static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->p[cfg->i].x + TRANSLATION;
+			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x + TRANSLATION;
 			cfg->i++;
 		}
 	}
@@ -77,7 +77,7 @@ static void	ft_translation_y(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].y = cfg->p[cfg->i].y - TRANSLATION;
+			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y - TRANSLATION;
 			cfg->i++;
 		}
 	}
@@ -85,7 +85,7 @@ static void	ft_translation_y(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].y = cfg->p[cfg->i].y + TRANSLATION;
+			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y + TRANSLATION;
 			cfg->i++;
 		}
 	}
@@ -99,10 +99,10 @@ static void	ft_scaling(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->center_x
-				+ (cfg->p[cfg->i].x - cfg->center_x) * ENLARGEMENT;
-			cfg->p[cfg->i].y = cfg->center_y
-				+ (cfg->p[cfg->i].y - cfg->center_y) * ENLARGEMENT;
+			cfg->pr[cfg->i].x = cfg->center_x
+				+ (cfg->pr[cfg->i].x - cfg->center_x) * ENLARGEMENT;
+			cfg->pr[cfg->i].y = cfg->center_y
+				+ (cfg->pr[cfg->i].y - cfg->center_y) * ENLARGEMENT;
 			cfg->i++;
 		}
 	}
@@ -110,10 +110,10 @@ static void	ft_scaling(t_config *cfg, mlx_key_data_t keydata)
 	{
 		while (cfg->i < (cfg->line_size * cfg->lst_size))
 		{
-			cfg->p[cfg->i].x = cfg->center_x
-				+ (cfg->p[cfg->i].x - cfg->center_x) * CONTRACTION;
-			cfg->p[cfg->i].y = cfg->center_y
-				+ (cfg->p[cfg->i].y - cfg->center_y) * CONTRACTION;
+			cfg->pr[cfg->i].x = cfg->center_x
+				+ (cfg->pr[cfg->i].x - cfg->center_x) * CONTRACTION;
+			cfg->pr[cfg->i].y = cfg->center_y
+				+ (cfg->pr[cfg->i].y - cfg->center_y) * CONTRACTION;
 			cfg->i++;
 		}
 	}

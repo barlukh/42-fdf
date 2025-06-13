@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 11:12:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 15:31:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef struct s_point
  * @param m_height Height of the monitor.
  * @param img Allocated MLX image handle.
  * @param mlx The MLX instance handle.
- * @param p Struct for a point's x, y, and z coordinates and color information.
+ * @param p Struct storing original x, y, and z coordinates and color information.
+ * @param pr Copied 'p' struct used to show different projections.
  */
 typedef struct s_config
 {
@@ -126,6 +127,7 @@ typedef struct s_config
 	mlx_image_t	*img;
 	mlx_t		*mlx;
 	t_point		*p;
+	t_point		*pr;
 }	t_config;
 
 /** Linked list struct storing the content of the map (one line per node).
@@ -187,6 +189,12 @@ int		ft_error_img(t_config *cfg);
  */
 int		ft_error_msg(void);
 
+/**	Prints an error message according to the mlx_errno and frees memory.
+ * @param cfg Configuration and helper variables.
+ * @return Errno.
+ */
+int		ft_error_pr(t_config *cfg);
+
 /** Sets an error message according to the mlx_errno and frees memory.
  * @param lst Allocated linked list for extracting the map file.
  * @param cfg Configuration and helper variables.
@@ -194,7 +202,7 @@ int		ft_error_msg(void);
  */
 int		ft_error_sort(t_list **lst, t_config *cfg);
 
-/**	Prints an error message according to the mlx_errno and frees memory.
+/**	Prints an exit message and frees memory.
  * @param cfg Configuration and helper variables.
  * @return Errno.
  */
