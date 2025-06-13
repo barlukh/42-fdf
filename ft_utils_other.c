@@ -6,13 +6,30 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 09:52:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 07:24:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:45:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static void	ft_atoi_base_loop(const char *s, int base, long long *n);
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*ptrd;
+	const unsigned char	*ptrs;
+	size_t				i;
+
+	ptrd = (unsigned char *)dest;
+	ptrs = (const unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		ptrd[i] = ptrs[i];
+		i++;
+	}
+	return (dest);
+}
 
 int	ft_atoi_base(const char *s)
 {
@@ -68,19 +85,17 @@ void	ft_free_split(char **line)
 	free(line);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	ft_fill_screen(t_config *cfg)
 {
-	unsigned char		*ptrd;
-	const unsigned char	*ptrs;
-	size_t				i;
-
-	ptrd = (unsigned char *)dest;
-	ptrs = (const unsigned char *)src;
-	i = 0;
-	while (i < n)
+	cfg->i = 0;
+	while (cfg->i < (int)cfg->img->height)
 	{
-		ptrd[i] = ptrs[i];
-		i++;
+		cfg->j = 0;
+		while (cfg->j < (int)cfg->img->width)
+		{
+			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
+			cfg->j++;
+		}
+		cfg->i++;
 	}
-	return (dest);
 }

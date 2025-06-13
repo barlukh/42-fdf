@@ -6,28 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/11 13:44:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 07:39:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static char	*ft_strdup(const char *s);
-
-void	ft_putstr(const char *s)
-{
-	size_t	i;
-
-	if (!s)
-		s = "(null)";
-	i = 0;
-	while (s[i] != '\0')
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
-	write(1, "\n", 1);
-}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -95,4 +80,19 @@ static char	*ft_strdup(const char *s)
 	ft_memcpy(ptr, s, s_len);
 	ptr[s_len] = '\0';
 	return (ptr);
+}
+
+void	ft_putstr(const char *s)
+{
+	size_t	i;
+
+	if (!s)
+		s = "(null)";
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+	write(1, "\n", 1);
 }
