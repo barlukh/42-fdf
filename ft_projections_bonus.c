@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_projections.c                                   :+:      :+:    :+:   */
+/*   ft_projections_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 10:08:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 17:30:36 by bgazur           ###   ########.fr       */
+/*   Created: 2025/06/13 17:29:07 by bgazur            #+#    #+#             */
+/*   Updated: 2025/06/13 19:08:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_fdf.h"
+#include "ft_fdf_bonus.h"
 
 static void	ft_bounding_min_max(t_config *cfg);
 
@@ -25,6 +25,22 @@ void	ft_projection_isometric(t_config *cfg)
 		cfg->pr[cfg->i].x = (cfg->x_temp - cfg->y_temp) / sqrt(2);
 		cfg->pr[cfg->i].y = (cfg->x_temp + cfg->y_temp - 2
 				* cfg->pr[cfg->i].z) / sqrt(6);
+		ft_bounding_min_max(cfg);
+		cfg->i++;
+	}
+}
+
+void	ft_projection_dimetric(t_config *cfg)
+{
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		cfg->pr[cfg->i] = cfg->p[cfg->i];
+		cfg->x_temp = cfg->pr[cfg->i].x;
+		cfg->y_temp = cfg->pr[cfg->i].y;
+		cfg->pr[cfg->i].x = (cfg->x_temp + cfg->y_temp) * cos(120);
+		cfg->pr[cfg->i].y = (cfg->y_temp - cfg->x_temp) * sin(120)
+			- cfg->pr[cfg->i].z;
 		ft_bounding_min_max(cfg);
 		cfg->i++;
 	}

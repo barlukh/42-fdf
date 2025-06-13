@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 16:13:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 16:53:59 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ int	main(int argc, char **argv)
 	 int i = 0;
 	 while (i < (cfg.line_size * cfg.lst_size))
 	 {
-	 	printf("[%.3f, %.3f, %.3f, %d] ", cfg.p[i].x, cfg.p[i].y, cfg.p[i].z, cfg.p[i].color);
+	 	printf("[%.3f, %.3f, %.3f, %d] ", cfg.pr[i].x, cfg.pr[i].y, cfg.pr[i].z, cfg.pr[i].color);
 	 	i++;
 	 	if (i % cfg.line_size == 0)
 	 	printf("\n");
 	 }
 	 printf("[%.3f, %.3f, %.3f, %.3f]\n", cfg.x_min, cfg.x_max, cfg.y_min, cfg.y_max);
+	 printf("%.3f\n", cfg.x_temp);
 	 printf("%.3f\n", cfg.y_temp);
 	 printf("%d\n", cfg.space);
 	// ........................................

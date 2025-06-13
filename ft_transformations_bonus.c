@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 16:20:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 17:36:02 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_fdf.h"
+#include "ft_fdf_bonus.h"
 
 static void	ft_translation_x(t_config *cfg, mlx_key_data_t keydata);
 static void	ft_translation_y(t_config *cfg, mlx_key_data_t keydata);

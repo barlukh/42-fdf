@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf.h                                           :+:      :+:    :+:   */
+/*   ft_fdf_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 19:25:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/13 20:47:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_FDF_H
-# define FT_FDF_H
+#ifndef FT_FDF_BONUS_H
+# define FT_FDF_BONUS_H
 
 //------------------------------------------------------------------------------
 // Library Headers
@@ -35,6 +35,10 @@
 
 # define WIDTH 2000
 # define HEIGHT 2000
+
+# define TRANSLATION 30
+# define ENLARGEMENT 1.2
+# define CONTRACTION 0.8
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -267,6 +271,12 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
 int		ft_parse(int argc, char **argv, t_config *cfg);
+
+/** Converts coordinates into dimetric projection.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_dimetric(t_config *cfg);
 
 /** Converts coordinates into isometric projection.
  * @param cfg Configuration and helper variables.
