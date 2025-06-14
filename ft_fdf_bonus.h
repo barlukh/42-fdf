@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 21:23:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:43:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@
 # define WIDTH 2000
 # define HEIGHT 2000
 
-# define TRANSLATION 30
-# define ENLARGEMENT 1.2
+# define ANGLE 0.01
 # define CONTRACTION 0.8
+# define ENLARGEMENT 1.2
+# define TRANSLATION 30
 
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
 
 /** Struct for x, y, and z coordinates and color information.
- * @param x X-axis.
- * @param y Y-axis.
- * @param z Z-axis.
+ * @param x x-axis.
+ * @param y y-axis.
+ * @param z z-axis.
  * @param color Color in RGB hexadecimal format.
  */
 typedef struct s_point
@@ -61,14 +62,14 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
- * @param x_min Minimum X value for a bounding box.
- * @param x_max Maximum X value for a bounding box.
- * @param x_temp Temporary variable for storing X value.
- * @param y_min Minimum Y value for a bounding box.
- * @param y_max Maximum Y value for a bounding box.
- * @param y_temp Temporary variable for storing Y value.
- * @param center_x Coordinate of the center of the screen on the X-axis.
- * @param center_y Coordinate of the center of the screen on the Y-axis.
+ * @param center_x Coordinate of the center point on the x-axis.
+ * @param center_y Coordinate of the center point on the y-axis.
+ * @param x_min Minimum x value for a bounding box.
+ * @param x_max Maximum x value for a bounding box.
+ * @param x_temp Temporary variable for storing x value.
+ * @param y_min Minimum y value for a bounding box.
+ * @param y_max Maximum y value for a bounding box.
+ * @param y_temp Temporary variable for storing y value.
  * @param comparison_size Helper variable to compare the line_size to.
  * @param dx Absolute difference between points (horizontal distance).
  * @param dy Absolute difference between points, negated (vertical distance).
@@ -96,14 +97,14 @@ typedef struct s_config
 {
 	char		*c;
 	char		**split;
+	double		center_x;
+	double		center_y;
 	double		x_min;
 	double		x_max;
 	double		x_temp;
 	double		y_min;
 	double		y_max;
 	double		y_temp;
-	int			center_x;
-	int			center_y;
 	int			comparison_size;
 	int			dx;
 	int			dy;
@@ -147,6 +148,12 @@ typedef struct s_list
  * @return Converted string as an int.
  */
 int		ft_atoi_base(const char *s);
+
+/** Finds the min and max coordinate for x and y.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_bounding_min_max(t_config *cfg);
 
 /** Sets the point matrix to a specified projection.
  * @param cfg Configuration and helper variables.

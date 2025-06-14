@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 13:28:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:40:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,12 @@ typedef struct s_list
  * @return Converted string as an int.
  */
 int		ft_atoi_base(const char *s);
+
+/** Finds the min and max coordinate for x and y.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_bounding_min_max(t_config *cfg);
 
 /** Sets the point matrix to a specified projection.
  * @param cfg Configuration and helper variables.
