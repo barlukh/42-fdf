@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 16:40:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 17:04:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 
 void	ft_bounding_min_max(t_config *cfg)
 {
-	cfg->x_min = 0;
-	cfg->x_max = 0;
-	cfg->y_min = 0;
-	cfg->y_max = 0;
+	cfg->x_min = INT32_MAX;
+	cfg->x_max = INT32_MIN;
+	cfg->y_min = INT32_MAX;
+	cfg->y_max = INT32_MIN;
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
