@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 15:40:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 17:24:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
- * @param center_x Coordinate of the center point on the x-axis.
- * @param center_y Coordinate of the center point on the y-axis.
+ * @param center_x Center point of the window on the x-axis.
+ * @param center_y Center point of the window on the y-axis.
  * @param x_min Minimum x value for a bounding box.
  * @param x_max Maximum x value for a bounding box.
  * @param x_temp Temporary variable for storing x value.
