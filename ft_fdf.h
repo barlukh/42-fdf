@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 13:22:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 13:28:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
+ * @param center_x Coordinate of the center point on the x-axis.
+ * @param center_y Coordinate of the center point on the y-axis.
  * @param x_min Minimum x value for a bounding box.
  * @param x_max Maximum x value for a bounding box.
  * @param x_temp Temporary variable for storing x value.
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
- * @param center_x Coordinate of the center point on the x-axis.
- * @param center_y Coordinate of the center point on the y-axis.
  * @param comparison_size Helper variable to compare the line_size to.
  * @param dx Absolute difference between points (horizontal distance).
  * @param dy Absolute difference between points, negated (vertical distance).
@@ -92,14 +92,14 @@ typedef struct s_config
 {
 	char		*c;
 	char		**split;
+	double		center_x;
+	double		center_y;
 	double		x_min;
 	double		x_max;
 	double		x_temp;
 	double		y_min;
 	double		y_max;
 	double		y_temp;
-	int			center_x;
-	int			center_y;
 	int			comparison_size;
 	int			dx;
 	int			dy;
