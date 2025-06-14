@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 17:30:01 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 19:14:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_S
 			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
 		ft_translation(cfg, keydata);
-	else if ((keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_DOWN
+	else if ((keydata.key == MLX_KEY_I && (keydata.action == MLX_PRESS
+				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_K
 			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
 		ft_scaling(cfg, keydata);
-	else if ((keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_RIGHT
+	else if ((keydata.key == MLX_KEY_J && (keydata.action == MLX_PRESS
+				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_L
 			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
 		ft_rotation(cfg, keydata);
 	else if (keydata.key == MLX_KEY_C && (keydata.action == MLX_PRESS))
@@ -51,11 +51,11 @@ static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		if (keydata.key == MLX_KEY_D)
+		if (keydata.key == MLX_KEY_A)
 			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x - TRANSLATION;
-		else if (keydata.key == MLX_KEY_A)
+		else if (keydata.key == MLX_KEY_D)
 			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x + TRANSLATION;
-		else if (keydata.key == MLX_KEY_S)
+		else if (keydata.key == MLX_KEY_W)
 			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y - TRANSLATION;
 		else
 			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y + TRANSLATION;
@@ -70,7 +70,7 @@ static void	ft_scaling(t_config *cfg, mlx_key_data_t keydata)
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		if (keydata.key == MLX_KEY_UP)
+		if (keydata.key == MLX_KEY_I)
 		{
 			cfg->pr[cfg->i].x = cfg->center_x
 				+ (cfg->pr[cfg->i].x - cfg->center_x) * ENLARGEMENT;
@@ -95,7 +95,7 @@ static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata)
 
 	ft_fill_screen(cfg);
 	ft_bounding_min_max(cfg);
-	if (keydata.key == MLX_KEY_RIGHT)
+	if (keydata.key == MLX_KEY_L)
 		angle = ROTATION_RIGHT;
 	else
 		angle = ROTATION_LEFT;
