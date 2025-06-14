@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 15:45:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 16:40:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_bounding_min_max(t_config *cfg)
 	}
 }
 
+// Centers all points to the bounding box of the window with correct spacing.
 static void	ft_bounding_box(t_config *cfg)
 {
 	cfg->i = 0;
