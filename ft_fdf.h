@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 17:24:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 18:55:16 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,9 @@ void	ft_bounding_min_max(t_config *cfg);
 /** Sets the point matrix to a specified projection.
  * @param cfg Configuration and helper variables.
  * @param f Function for setting a chosen projection.
- * @return None.
+ * @return 0 on SUCCESS, 1 on FAILURE.
  */
-void	ft_config_matrix(t_config *cfg, void (*f)(t_config *));
+int		ft_config_matrix(t_config *cfg, void (*f)(t_config *));
 
 /** Configurates the initial window.
  * @param cfg Configuration and helper variables.
