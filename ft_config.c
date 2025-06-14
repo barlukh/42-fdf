@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 21:39:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:45:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ void	ft_config_window(t_config *cfg)
 
 void	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 {
-	cfg->x_min = 0;
-	cfg->x_max = 0;
-	cfg->y_min = 0;
-	cfg->y_max = 0;
 	ft_fill_screen(cfg);
 	f(cfg);
+	ft_bounding_min_max(cfg);
 	cfg->x_temp = fabs(cfg->x_max - cfg->x_min);
 	cfg->y_temp = fabs(cfg->y_max - cfg->y_min);
 	if (cfg->x_temp > cfg->y_temp)
@@ -43,6 +40,27 @@ void	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 	{
 		cfg->space = (HEIGHT - HEIGHT / 10) / cfg->y_temp;
 		ft_bounding_box(cfg);
+	}
+}
+
+void	ft_bounding_min_max(t_config *cfg)
+{
+	cfg->x_min = 0;
+	cfg->x_max = 0;
+	cfg->y_min = 0;
+	cfg->y_max = 0;
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		if (cfg->pr[cfg->i].x > cfg->x_max)
+			cfg->x_max = cfg->pr[cfg->i].x;
+		if (cfg->pr[cfg->i].x < cfg->x_min)
+			cfg->x_min = cfg->pr[cfg->i].x;
+		if (cfg->pr[cfg->i].y > cfg->y_max)
+			cfg->y_max = cfg->pr[cfg->i].y;
+		if (cfg->pr[cfg->i].y < cfg->y_min)
+			cfg->y_min = cfg->pr[cfg->i].y;
+		cfg->i++;
 	}
 }
 
