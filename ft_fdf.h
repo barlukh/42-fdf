@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 19:25:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 13:22:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@
 //------------------------------------------------------------------------------
 
 /** Struct for x, y, and z coordinates and color information.
- * @param x X-axis.
- * @param y Y-axis.
- * @param z Z-axis.
+ * @param x x-axis.
+ * @param y y-axis.
+ * @param z z-axis.
  * @param color Color in RGB hexadecimal format.
  */
 typedef struct s_point
@@ -57,14 +57,14 @@ typedef struct s_point
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
  * @param split Temporary array to store the result of ft_split() into.
- * @param x_min Minimum X value for a bounding box.
- * @param x_max Maximum X value for a bounding box.
- * @param x_temp Temporary variable for storing X value.
- * @param y_min Minimum Y value for a bounding box.
- * @param y_max Maximum Y value for a bounding box.
- * @param y_temp Temporary variable for storing Y value.
- * @param center_x Coordinate of the center of the screen on the X-axis.
- * @param center_y Coordinate of the center of the screen on the Y-axis.
+ * @param x_min Minimum x value for a bounding box.
+ * @param x_max Maximum x value for a bounding box.
+ * @param x_temp Temporary variable for storing x value.
+ * @param y_min Minimum y value for a bounding box.
+ * @param y_max Maximum y value for a bounding box.
+ * @param y_temp Temporary variable for storing y value.
+ * @param center_x Coordinate of the center point on the x-axis.
+ * @param center_y Coordinate of the center point on the y-axis.
  * @param comparison_size Helper variable to compare the line_size to.
  * @param dx Absolute difference between points (horizontal distance).
  * @param dy Absolute difference between points, negated (vertical distance).
