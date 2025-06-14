@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 17:04:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/14 19:04:26 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_config_window(t_config *cfg)
 	cfg->center_y = HEIGHT / 2;
 }
 
-void	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
+int	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 {
 	ft_fill_screen(cfg);
 	f(cfg);
@@ -32,15 +32,16 @@ void	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 	cfg->x_temp = fabs(cfg->x_max - cfg->x_min);
 	cfg->y_temp = fabs(cfg->y_max - cfg->y_min);
 	if (cfg->x_temp > cfg->y_temp)
-	{
 		cfg->space = (WIDTH - WIDTH / 10) / cfg->x_temp;
-		ft_bounding_box(cfg);
-	}
 	else
-	{
 		cfg->space = (HEIGHT - HEIGHT / 10) / cfg->y_temp;
-		ft_bounding_box(cfg);
+	if (cfg->space == 0)
+	{
+		mlx_errno = MLX_INVMAP;
+		return (EXIT_FAILURE);
 	}
+	ft_bounding_box(cfg);
+	return (EXIT_SUCCESS);
 }
 
 void	ft_bounding_min_max(t_config *cfg)
