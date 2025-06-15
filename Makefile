@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/04 08:42:48 by bgazur            #+#    #+#              #
-#    Updated: 2025/06/13 20:42:49 by bgazur           ###   ########.fr        #
+#    Updated: 2025/06/15 15:37:52 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,13 @@ LFLAGS =	-ldl -lglfw -lm -lmlx42 -pthread
 RM = 		rm -f
 
 HDR =		ft_fdf.h
-
 HDR_B =		ft_fdf_bonus.h
 
 OBJ_DIR = 	objects
+OBJ_DIR_B =	objects_b
 
 OBJS =		$(SRCS:%.c=$(OBJ_DIR)/%.o)
-
-OBJS_B =	$(SRCS_B:%.c=$(OBJ_DIR)/%.o)
+OBJS_B =	$(SRCS_B:%.c=$(OBJ_DIR_B)/%.o)
 
 SRCS = 		ft_config.c \
 			ft_draw.c \
@@ -56,18 +55,24 @@ SRCS_B = 	ft_config.c \
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
-$(BONUS): $(OBJ_DIR) $(OBJS_B)
+$(BONUS): $(OBJ_DIR_B) $(OBJS_B)
 	$(CC) $(CFLAGS) $(OBJS_B) -o $(BONUS) $(LFLAGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: %.c $(HDR) $(HDR_B)
+$(OBJ_DIR_B):
+	mkdir -p $(OBJ_DIR_B)
+
+$(OBJ_DIR)/%.o: %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(OBJ_DIR) $(NAME) $(BONUS)
+$(OBJ_DIR_B)/%.o: %.c $(HDR) $(HDR_B)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(OBJ_DIR) $(BONUS)
+all: $(OBJ_DIR) $(OBJ_DIR_B) $(NAME) $(BONUS)
+
+bonus: $(OBJ_DIR_B) $(BONUS)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_B)
