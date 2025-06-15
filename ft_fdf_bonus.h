@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/15 15:21:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/15 17:08:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@
 
 # define WIDTH 2000
 # define HEIGHT 2000
-# define LIMIT_IN 10000
+
+# define TRUE 1
+# define FALSE 0
+
+# define LIMIT_IN 20000
 # define LIMIT_OUT 20
 
 # define CONTRACTION 0.8

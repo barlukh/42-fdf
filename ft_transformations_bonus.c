@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/15 15:20:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/15 17:15:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,21 @@ void	ft_key_hook(mlx_key_data_t k, void *param)
 // Zooms in with the center of the window being the zoom point.
 static void	ft_scaling_in(t_config *cfg)
 {
-	int	flag;
+	int	limit_flag;
 
-	flag = 1;
+	limit_flag = FALSE;
 	ft_fill_screen(cfg);
+	ft_bounding_min_max(cfg);
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		if (cfg->pr[cfg->i].x > LIMIT_IN || cfg->pr[cfg->i].x < -LIMIT_IN
-			|| cfg->pr[cfg->i].y > LIMIT_IN || cfg->pr[cfg->i].y < -LIMIT_IN)
-			flag = 0;
+		if (fabs(cfg->x_min - cfg->x_max) > LIMIT_IN
+			|| fabs(cfg->y_min - cfg->y_max) > LIMIT_IN)
+			limit_flag = TRUE;
 		cfg->i++;
 	}
 	cfg->i = 0;
-	while (cfg->i < (cfg->line_size * cfg->lst_size) && flag == 1)
+	while (cfg->i < (cfg->line_size * cfg->lst_size) && limit_flag == FALSE)
 	{
 		cfg->pr[cfg->i].x = cfg->center_x
 			+ (cfg->pr[cfg->i].x - cfg->center_x) * ENLARGEMENT;
@@ -75,9 +76,9 @@ static void	ft_scaling_in(t_config *cfg)
 // Zooms out with the center of the window being the zoom point.
 static void	ft_scaling_out(t_config *cfg)
 {
-	int	flag;
+	int	limit_flag;
 
-	flag = 1;
+	limit_flag = FALSE;
 	ft_fill_screen(cfg);
 	ft_bounding_min_max(cfg);
 	cfg->i = 0;
@@ -85,11 +86,11 @@ static void	ft_scaling_out(t_config *cfg)
 	{
 		if (fabs(cfg->x_min - cfg->x_max) < LIMIT_OUT
 			|| fabs(cfg->y_min - cfg->y_max) < LIMIT_OUT)
-			flag = 0;
+			limit_flag = TRUE;
 		cfg->i++;
 	}
 	cfg->i = 0;
-	while (cfg->i < (cfg->line_size * cfg->lst_size) && flag == 1)
+	while (cfg->i < (cfg->line_size * cfg->lst_size) && limit_flag == FALSE)
 	{
 		cfg->pr[cfg->i].x = cfg->center_x
 			+ (cfg->pr[cfg->i].x - cfg->center_x) * CONTRACTION;
@@ -103,16 +104,17 @@ static void	ft_scaling_out(t_config *cfg)
 static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
 {
 	ft_fill_screen(cfg);
+	ft_bounding_min_max(cfg);
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
 	{
-		if (keydata.key == MLX_KEY_A)
+		if (keydata.key == MLX_KEY_A && cfg->x_max > 0)
 			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x - TRANSLATION;
-		else if (keydata.key == MLX_KEY_D)
+		else if (keydata.key == MLX_KEY_D && cfg->x_min < WIDTH)
 			cfg->pr[cfg->i].x = cfg->pr[cfg->i].x + TRANSLATION;
-		else if (keydata.key == MLX_KEY_W)
+		else if (keydata.key == MLX_KEY_W && cfg->y_max > 0)
 			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y - TRANSLATION;
-		else
+		else if (keydata.key == MLX_KEY_S && cfg->y_min < HEIGHT)
 			cfg->pr[cfg->i].y = cfg->pr[cfg->i].y + TRANSLATION;
 		cfg->i++;
 	}
