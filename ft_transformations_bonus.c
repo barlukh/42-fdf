@@ -6,42 +6,97 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 19:14:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/15 15:20:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf_bonus.h"
 
+static void	ft_scaling_in(t_config *cfg);
+static void	ft_scaling_out(t_config *cfg);
 static void	ft_translation(t_config *cfg, mlx_key_data_t keydata);
-static void	ft_scaling(t_config *cfg, mlx_key_data_t keydata);
 static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata);
 
-void	ft_key_hook(mlx_key_data_t keydata, void *param)
+void	ft_key_hook(mlx_key_data_t k, void *param)
 {
 	t_config	*cfg;
 
 	cfg = param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(cfg->mlx);
-	else if ((keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_D
-			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-		|| (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_S
-			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
-		ft_translation(cfg, keydata);
-	else if ((keydata.key == MLX_KEY_I && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_K
-			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
-		ft_scaling(cfg, keydata);
-	else if ((keydata.key == MLX_KEY_J && (keydata.action == MLX_PRESS
-				|| keydata.action == MLX_REPEAT)) || (keydata.key == MLX_KEY_L
-			&& (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)))
-		ft_rotation(cfg, keydata);
-	else if (keydata.key == MLX_KEY_C && (keydata.action == MLX_PRESS))
+	if (k.key == MLX_KEY_I && (k.action == MLX_PRESS || k.action == MLX_REPEAT))
+		ft_scaling_in(cfg);
+	else if (k.key == MLX_KEY_K && (k.action == MLX_PRESS
+			|| k.action == MLX_REPEAT))
+		ft_scaling_out(cfg);
+	else if ((k.key == MLX_KEY_A && (k.action == MLX_PRESS
+				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_D
+			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT))
+		|| (k.key == MLX_KEY_W && (k.action == MLX_PRESS
+				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_S
+			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT)))
+		ft_translation(cfg, k);
+	else if ((k.key == MLX_KEY_J && (k.action == MLX_PRESS
+				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_L
+			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT)))
+		ft_rotation(cfg, k);
+	else if (k.key == MLX_KEY_C && (k.action == MLX_PRESS))
 		ft_config_matrix(cfg, ft_projection_isometric);
-	else if (keydata.key == MLX_KEY_V && (keydata.action == MLX_PRESS))
+	else if (k.key == MLX_KEY_V && (k.action == MLX_PRESS))
 		ft_config_matrix(cfg, ft_projection_trimetric);
+	else if (k.key == MLX_KEY_ESCAPE && k.action == MLX_PRESS)
+		mlx_close_window(cfg->mlx);
+}
+
+// Zooms in with the center of the window being the zoom point.
+static void	ft_scaling_in(t_config *cfg)
+{
+	int	flag;
+
+	flag = 1;
+	ft_fill_screen(cfg);
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		if (cfg->pr[cfg->i].x > LIMIT_IN || cfg->pr[cfg->i].x < -LIMIT_IN
+			|| cfg->pr[cfg->i].y > LIMIT_IN || cfg->pr[cfg->i].y < -LIMIT_IN)
+			flag = 0;
+		cfg->i++;
+	}
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size) && flag == 1)
+	{
+		cfg->pr[cfg->i].x = cfg->center_x
+			+ (cfg->pr[cfg->i].x - cfg->center_x) * ENLARGEMENT;
+		cfg->pr[cfg->i].y = cfg->center_y
+			+ (cfg->pr[cfg->i].y - cfg->center_y) * ENLARGEMENT;
+		cfg->i++;
+	}
+}
+
+// Zooms out with the center of the window being the zoom point.
+static void	ft_scaling_out(t_config *cfg)
+{
+	int	flag;
+
+	flag = 1;
+	ft_fill_screen(cfg);
+	ft_bounding_min_max(cfg);
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		if (fabs(cfg->x_min - cfg->x_max) < LIMIT_OUT
+			|| fabs(cfg->y_min - cfg->y_max) < LIMIT_OUT)
+			flag = 0;
+		cfg->i++;
+	}
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size) && flag == 1)
+	{
+		cfg->pr[cfg->i].x = cfg->center_x
+			+ (cfg->pr[cfg->i].x - cfg->center_x) * CONTRACTION;
+		cfg->pr[cfg->i].y = cfg->center_y
+			+ (cfg->pr[cfg->i].y - cfg->center_y) * CONTRACTION;
+		cfg->i++;
+	}
 }
 
 // Moves the projection to the specified direction.
@@ -63,38 +118,12 @@ static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
 	}
 }
 
-// Zooms in or out with the center of the window being the zoom point.
-static void	ft_scaling(t_config *cfg, mlx_key_data_t keydata)
-{
-	ft_fill_screen(cfg);
-	cfg->i = 0;
-	while (cfg->i < (cfg->line_size * cfg->lst_size))
-	{
-		if (keydata.key == MLX_KEY_I)
-		{
-			cfg->pr[cfg->i].x = cfg->center_x
-				+ (cfg->pr[cfg->i].x - cfg->center_x) * ENLARGEMENT;
-			cfg->pr[cfg->i].y = cfg->center_y
-				+ (cfg->pr[cfg->i].y - cfg->center_y) * ENLARGEMENT;
-		}
-		else
-		{
-			cfg->pr[cfg->i].x = cfg->center_x
-				+ (cfg->pr[cfg->i].x - cfg->center_x) * CONTRACTION;
-			cfg->pr[cfg->i].y = cfg->center_y
-				+ (cfg->pr[cfg->i].y - cfg->center_y) * CONTRACTION;
-		}
-		cfg->i++;
-	}
-}
-
 // Rotates the projection around the center of the window.
 static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata)
 {
 	double	angle;
 
 	ft_fill_screen(cfg);
-	ft_bounding_min_max(cfg);
 	if (keydata.key == MLX_KEY_L)
 		angle = ROTATION_RIGHT;
 	else

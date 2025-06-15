@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/14 18:55:16 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/15 15:21:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,11 +227,11 @@ void	ft_free_split(char **line);
 char	*ft_get_next_line(int fd);
 
 /** Callback function that executes when a key event occurs.
- * @param keydata Data related to the mlx_key_hook function.
+ * @param k Data struct related to the mlx_key_hook function.
  * @param param An additional optional parameter.
  * @return None.
  */
-void	ft_key_hook(mlx_key_data_t keydata, void *param);
+void	ft_key_hook(mlx_key_data_t k, void *param);
 
 /** Adds a node at the end of a linked list.
  * @param lst Address of a pointer to the first node of the list.
