@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:11:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:07:35 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <math.h>
 # include <MLX42.h>
 
-# include <stdio.h> // REMOVE BEFORE SUBMISSION!
-
 //------------------------------------------------------------------------------
 // Macro Definitions
 //------------------------------------------------------------------------------
@@ -33,7 +31,7 @@
 # define FALSE 0
 
 # define LIMIT_IN 20000
-# define LIMIT_OUT 20
+# define LIMIT_OUT 1
 
 # define CONTRACTION 0.8
 # define ENLARGEMENT 1.2

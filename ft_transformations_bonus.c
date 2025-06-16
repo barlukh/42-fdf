@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:10:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:08:24 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	ft_scaling_out(t_config *cfg)
 
 // Moves the projection to the specified direction.
 static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
-{	
+{
 	ft_fill_screen(cfg);
 	ft_bounding_min_max(cfg);
 	cfg->i = 0;

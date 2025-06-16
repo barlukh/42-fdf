@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:10:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:08:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,10 @@ int	main(int argc, char **argv)
 	if (!cfg.pr)
 		return (ft_error_pr(&cfg));
 	if (ft_config_matrix(&cfg, ft_projection_isometric) == EXIT_FAILURE)
-		return ft_exit_terminate(&cfg);
+		return (ft_exit_terminate(&cfg));
 	mlx_image_to_window(cfg.mlx, cfg.img, 0, 0);
 	mlx_key_hook(cfg.mlx, ft_key_hook, &cfg);
 	mlx_loop_hook(cfg.mlx, ft_draw, &cfg);
 	mlx_loop(cfg.mlx);
-	// .......................................
-	 int i = 0;
-	 while (i < (cfg.line_size * cfg.lst_size))
-	 {
-	 	printf("[%.3f, %.3f, %.3f, %d] ", cfg.pr[i].x, cfg.pr[i].y, cfg.pr[i].z, cfg.pr[i].color);
-	 	i++;
-	 	if (i % cfg.line_size == 0)
-	 	printf("\n");
-	 }
-	 printf("[%.3f, %.3f, %.3f, %.3f]\n", cfg.x_min, cfg.x_max, cfg.y_min, cfg.y_max);
-	// ........................................
 	return (ft_exit_terminate(&cfg));
 }

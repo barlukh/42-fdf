@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:06:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:07:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <MLX42.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# include <stdio.h> // REMOVE BEFORE SUBMISSION!
 
 //------------------------------------------------------------------------------
 // Macro Definitions
