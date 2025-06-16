@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:57:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 16:17:35 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 08:30:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_draw_line_check(t_config *cfg);
 static void	ft_draw_line(t_config *cfg, int x1, int y1);
-static void	ft_draw_line_loop(t_config *cfg, int x1, int y1);
+static void	ft_draw_line_loop(t_config *cfg, t_draw *var, int x1, int y1);
 
 void	ft_fill_screen(t_config *cfg)
 {
@@ -71,20 +71,22 @@ static void	ft_draw_line_check(t_config *cfg)
 // Draws a line based on the Bresenham’s line algorithm.
 static void	ft_draw_line(t_config *cfg, int x1, int y1)
 {
-	cfg->dx = fabs((float)x1 - cfg->x0);
-	cfg->dy = -fabs((float)y1 - cfg->y0);
-	cfg->sx = 1;
+	t_draw	var;
+
+	var.dx = fabs((float)x1 - cfg->x0);
+	var.dy = -fabs((float)y1 - cfg->y0);
+	var.sx = 1;
 	if (cfg->x0 > x1)
-		cfg->sx = -1;
-	cfg->sy = 1;
+		var.sx = -1;
+	var.sy = 1;
 	if (cfg->y0 > y1)
-		cfg->sy = -1;
-	cfg->err = cfg->dx + cfg->dy;
-	ft_draw_line_loop(cfg, x1, y1);
+		var.sy = -1;
+	var.err = var.dx + var.dy;
+	ft_draw_line_loop(cfg, &var, x1, y1);
 }
 
 // Main loop for the ft_draw_line() function.
-static void	ft_draw_line_loop(t_config *cfg, int x1, int y1)
+static void	ft_draw_line_loop(t_config *cfg, t_draw *var, int x1, int y1)
 {
 	while (1)
 	{
@@ -93,16 +95,16 @@ static void	ft_draw_line_loop(t_config *cfg, int x1, int y1)
 			mlx_put_pixel(cfg->img, cfg->x0, cfg->y0, cfg->pr[cfg->i].color);
 		if (cfg->x0 == x1 && cfg->y0 == y1)
 			break ;
-		cfg->e2 = 2 * cfg->err;
-		if (cfg->e2 > cfg->dy)
+		var->e2 = 2 * var->err;
+		if (var->e2 > var->dy)
 		{
-			cfg->err += cfg->dy;
-			cfg->x0 += cfg->sx;
+			var->err += var->dy;
+			cfg->x0 += var->sx;
 		}
-		if (cfg->e2 < cfg->dx)
+		if (var->e2 < var->dx)
 		{
-			cfg->err += cfg->dx;
-			cfg->y0 += cfg->sy;
+			var->err += var->dx;
+			cfg->y0 += var->sy;
 		}
 	}
 }
