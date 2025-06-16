@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 12:17:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 15:54:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ static int	ft_map_sort(t_list **lst, t_config *cfg)
 	t_list	*temp;
 	char	**line;
 
-	cfg->c_flag = FALSE;
 	temp = *lst;
 	while (temp != NULL)
 	{
@@ -151,7 +150,6 @@ static int	ft_map_sort_matrix(char *point, t_config *cfg)
 		cfg->p[cfg->j].z = ft_atoi_base(split[0]);
 		cfg->p[cfg->j].color = (uint32_t)ft_atoi_base(split[1]);
 		cfg->p[cfg->j].color = cfg->p[cfg->j].color * 256 + 255;
-		cfg->c_flag = TRUE;
 		ft_free_split(split);
 	}
 	cfg->i++;

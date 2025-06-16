@@ -6,30 +6,16 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:57:18 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 08:30:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 15:48:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
 static void	ft_draw_line_check(t_config *cfg);
-static void	ft_draw_line(t_config *cfg, int x1, int y1);
+static void	ft_draw_line(t_config *cfg, t_draw *var, int x1, int y1);
 static void	ft_draw_line_loop(t_config *cfg, t_draw *var, int x1, int y1);
-
-void	ft_fill_screen(t_config *cfg)
-{
-	cfg->i = 0;
-	while (cfg->i < (int)cfg->img->height)
-	{
-		cfg->j = 0;
-		while (cfg->j < (int)cfg->img->width)
-		{
-			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
-			cfg->j++;
-		}
-		cfg->i++;
-	}
-}
+static void	ft_color_grading(t_config *cfg, t_draw *var);
 
 void	ft_draw(void *param)
 {
@@ -51,38 +37,43 @@ void	ft_draw(void *param)
 // Checks for a validity of coordinates to draw a line between them.
 static void	ft_draw_line_check(t_config *cfg)
 {
+	t_draw	var;
+
 	if (cfg->i % cfg->line_size < cfg->line_size - 1
 		&& cfg->i % cfg->lst_size < cfg->lst_size)
 	{
 		cfg->x0 = cfg->pr[cfg->i].x;
 		cfg->y0 = cfg->pr[cfg->i].y;
-		ft_draw_line(cfg, cfg->pr[cfg->i + 1].x, cfg->pr[cfg->i + 1].y);
+		var.c_start = cfg->pr[cfg->i].color;
+		var.c_end = cfg->pr[cfg->i + 1].color;
+		ft_draw_line(cfg, &var, cfg->pr[cfg->i + 1].x, cfg->pr[cfg->i + 1].y);
 	}
 	if (cfg->i < (cfg->line_size * (cfg->lst_size - 1)))
 	{
 		cfg->x0 = cfg->pr[cfg->i].x;
 		cfg->y0 = cfg->pr[cfg->i].y;
-		ft_draw_line(cfg,
+		var.c_start = cfg->pr[cfg->i].color;
+		var.c_end = cfg->pr[cfg->i + 1].color;
+		ft_draw_line(cfg, &var,
 			cfg->pr[(cfg->i + cfg->line_size)].x,
 			cfg->pr[(cfg->i + cfg->line_size)].y);
 	}
 }
 
 // Draws a line based on the Bresenham’s line algorithm.
-static void	ft_draw_line(t_config *cfg, int x1, int y1)
+static void	ft_draw_line(t_config *cfg, t_draw *var, int x1, int y1)
 {
-	t_draw	var;
-
-	var.dx = fabs((float)x1 - cfg->x0);
-	var.dy = -fabs((float)y1 - cfg->y0);
-	var.sx = 1;
+	var->len = 0;
+	var->dx = fabs((float)x1 - cfg->x0);
+	var->dy = -fabs((float)y1 - cfg->y0);
+	var->sx = 1;
 	if (cfg->x0 > x1)
-		var.sx = -1;
-	var.sy = 1;
+		var->sx = -1;
+	var->sy = 1;
 	if (cfg->y0 > y1)
-		var.sy = -1;
-	var.err = var.dx + var.dy;
-	ft_draw_line_loop(cfg, &var, x1, y1);
+		var->sy = -1;
+	var->err = var->dx + var->dy;
+	ft_draw_line_loop(cfg, var, x1, y1);
 }
 
 // Main loop for the ft_draw_line() function.
@@ -90,9 +81,9 @@ static void	ft_draw_line_loop(t_config *cfg, t_draw *var, int x1, int y1)
 {
 	while (1)
 	{
-		if ((cfg->x0 > 0 && cfg->x0 < WIDTH)
-			&& (cfg->y0 > 0 && cfg->y0 < HEIGHT))
-			mlx_put_pixel(cfg->img, cfg->x0, cfg->y0, cfg->pr[cfg->i].color);
+		var->len++;
+		var->t = var->t = var->len / (var->dx + fabs(var->dy));
+		ft_color_grading(cfg, var);
 		if (cfg->x0 == x1 && cfg->y0 == y1)
 			break ;
 		var->e2 = 2 * var->err;
@@ -107,4 +98,27 @@ static void	ft_draw_line_loop(t_config *cfg, t_draw *var, int x1, int y1)
 			cfg->y0 += var->sy;
 		}
 	}
+}
+
+static void	ft_color_grading(t_config *cfg, t_draw *var)
+{
+    uint8_t r1 = (var->c_start >> 24) & 0xFF;
+    uint8_t g1 = (var->c_start >> 16) & 0xFF;
+    uint8_t b1 = (var->c_start >> 8)  & 0xFF;
+    uint8_t a1 = (var->c_start) & 0xFF;
+
+    uint8_t r2 = (var->c_end >> 24) & 0xFF;
+    uint8_t g2 = (var->c_end >> 16) & 0xFF;
+    uint8_t b2 = (var->c_end >> 8)  & 0xFF;
+    uint8_t a2 = (var->c_end) & 0xFF;
+
+	uint8_t r = r1 + (uint8_t)((r2 - r1) * var->t);
+	uint8_t g = g1 + (uint8_t)((g2 - g1) * var->t);
+	uint8_t b = b1 + (uint8_t)((b2 - b1) * var->t);
+	uint8_t a = a1 + (uint8_t)((a2 - a1) * var->t);
+
+    uint32_t graded_color = (r << 24) | (g << 16) | (b << 8) | a;
+	if ((cfg->x0 > 0 && cfg->x0 < WIDTH)
+			&& (cfg->y0 > 0 && cfg->y0 < HEIGHT))
+			mlx_put_pixel(cfg->img, cfg->x0, cfg->y0, graded_color);
 }

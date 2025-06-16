@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:04:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 13:30:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,21 @@ static void	ft_bounding_box(t_config *cfg, int space)
 		else
 			cfg->pr[cfg->i].y = cfg->center_y + ((cfg->pr[cfg->i].y
 						- cfg->y_max) + (cfg->y_temp / 2)) * space;
+		cfg->i++;
+	}
+}
+
+void	ft_fill_screen(t_config *cfg)
+{
+	cfg->i = 0;
+	while (cfg->i < (int)cfg->img->height)
+	{
+		cfg->j = 0;
+		while (cfg->j < (int)cfg->img->width)
+		{
+			mlx_put_pixel(cfg->img, cfg->j, cfg->i, 0x000000FF);
+			cfg->j++;
+		}
 		cfg->i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 12:16:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 15:55:45 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@
 
 # define WIDTH 2000
 # define HEIGHT 2000
-
-# define TRUE 1
-# define FALSE 0
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -65,7 +62,6 @@ typedef struct s_point
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
- * @param c_flag Color flag to indicate whether the map has default colors.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
@@ -90,7 +86,6 @@ typedef struct s_config
 	double		y_min;
 	double		y_max;
 	double		y_temp;
-	int			c_flag;
 	int			fd;
 	int			i;
 	int			j;
@@ -110,17 +105,25 @@ typedef struct s_config
  * @param dy Absolute difference between points, negated (vertical distance).
  * @param err Error value tracking when to move in each direction.
  * @param e2 Temporary variable used to decide whether to adjust x or y.
+ * @param len Length of the line.
  * @param sx Step direction for x.
  * @param sy Step direction for y.
+ * @param t Interpolation factor.
+ * @param c_end Color of the destination pixel.
+ * @param c_start Color of the start pixel.
  */
 typedef struct s_draw
 {
-	int	dx;
-	int	dy;
-	int	err;
-	int	e2;
-	int	sx;
-	int	sy;
+	double	dx;
+	double	dy;
+	double	err;
+	double	e2;
+	double	len;
+	double	sx;
+	double	sy;
+	double	t;
+	int		c_end;
+	int		c_start;
 }	t_draw;
 
 /** Linked list struct storing the content of the map (one line per node).
