@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 09:00:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 11:11:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ void	ft_bounding_min_max(t_config *cfg);
  * @return 0 on SUCCESS, 1 on FAILURE.
  */
 int		ft_config_matrix(t_config *cfg, void (*f)(t_config *));
+
+/** Counts a centroid of an object.
+ * @param cfg Configuration and helper variables.
+ * @param c_x Center point of an object on the x-axis (centroid).
+ * @param c_y Center point of an object on the y-axis (centroid).
+ * @return None.
+ */
+void	ft_count_centroid(t_config *cfg, double *c_x, double *c_y);
 
 /** Sets every pixel on the screen to a specified color.
  * @param cfg Configuration and helper variables.

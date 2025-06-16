@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/15 17:15:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 11:10:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	ft_scaling_out(t_config *cfg)
 
 // Moves the projection to the specified direction.
 static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
-{
+{	
 	ft_fill_screen(cfg);
 	ft_bounding_min_max(cfg);
 	cfg->i = 0;
@@ -124,7 +124,10 @@ static void	ft_translation(t_config *cfg, mlx_key_data_t keydata)
 static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata)
 {
 	double	angle;
+	double	c_x;
+	double	c_y;
 
+	ft_count_centroid(cfg, &c_x, &c_y);
 	ft_fill_screen(cfg);
 	if (keydata.key == MLX_KEY_L)
 		angle = ROTATION_RIGHT;
@@ -135,10 +138,10 @@ static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata)
 	{
 		cfg->x_temp = cfg->pr[cfg->i].x;
 		cfg->y_temp = cfg->pr[cfg->i].y;
-		cfg->pr[cfg->i].x = (cfg->x_temp - cfg->center_x) * cos(angle)
-			- (cfg->y_temp - cfg->center_y) * sin(angle) + cfg->center_x;
-		cfg->pr[cfg->i].y = (cfg->x_temp - cfg->center_x) * sin(angle)
-			+ (cfg->y_temp - cfg->center_y) * cos(angle) + cfg->center_y;
+		cfg->pr[cfg->i].x = (cfg->x_temp - c_x) * cos(angle)
+			- (cfg->y_temp - c_y) * sin(angle) + c_x;
+		cfg->pr[cfg->i].y = (cfg->x_temp - c_x) * sin(angle)
+			+ (cfg->y_temp - c_y) * cos(angle) + c_y;
 		cfg->i++;
 	}
 }
