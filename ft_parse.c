@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/13 07:27:04 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 08:54:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,18 @@ static int	ft_validate_arguments(int argc, char **argv, t_config *cfg)
 // Links each row in the map file as a string to a linked list.
 static int	ft_map_extract(t_config *cfg, t_list **lst)
 {
+	int		comparison_size;
 	char	*line;
 	t_list	*node;
 
-	cfg->comparison_size = INT32_MIN;
+	comparison_size = INT32_MIN;
 	line = ft_get_next_line(cfg->fd);
 	while (line != NULL)
 	{
 		cfg->line_size = ft_word_count(line, ' ');
-		if (cfg->comparison_size == INT32_MIN)
-			cfg->comparison_size = cfg->line_size;
-		else if (cfg->comparison_size != cfg->line_size)
+		if (comparison_size == INT32_MIN)
+			comparison_size = cfg->line_size;
+		else if (comparison_size != cfg->line_size)
 			return (ft_error_extract(line, lst, cfg, MLX_INVMAP));
 		node = ft_lstnew(line);
 		if (!node)
@@ -130,6 +131,8 @@ static int	ft_map_sort(t_list **lst, t_config *cfg)
 // Sorts X-axis, Y-axis, Z-axis and color attributes into a point matrix.
 static int	ft_map_sort_matrix(char *point, t_config *cfg)
 {
+	char	**split;
+	
 	cfg->p[cfg->j].x = (cfg->j - (cfg->line_size / 2))
 		- (cfg->k * cfg->line_size);
 	cfg->p[cfg->j].y = cfg->k - (cfg->lst_size / 2);
@@ -141,13 +144,13 @@ static int	ft_map_sort_matrix(char *point, t_config *cfg)
 	}
 	else
 	{
-		cfg->split = ft_split(point, ',');
-		if (cfg->split == NULL)
+		split = ft_split(point, ',');
+		if (split == NULL)
 			return (EXIT_FAILURE);
-		cfg->p[cfg->j].z = ft_atoi_base(cfg->split[0]);
-		cfg->p[cfg->j].color = (uint32_t)ft_atoi_base(cfg->split[1]);
+		cfg->p[cfg->j].z = ft_atoi_base(split[0]);
+		cfg->p[cfg->j].color = (uint32_t)ft_atoi_base(split[1]);
 		cfg->p[cfg->j].color = cfg->p[cfg->j].color * 256 + 255;
-		ft_free_split(cfg->split);
+		ft_free_split(split);
 	}
 	cfg->i++;
 	cfg->j++;

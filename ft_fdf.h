@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/15 15:39:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 08:59:02 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_point
 
 /** Configuration and helper variables.
  * @param c Helper variable for argument validation.
- * @param split Temporary array to store the result of ft_split() into.
  * @param center_x Center point of the window on the x-axis.
  * @param center_y Center point of the window on the y-axis.
  * @param x_min Minimum x value for a bounding box.
@@ -65,24 +64,14 @@ typedef struct s_point
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
- * @param comparison_size Helper variable to compare the line_size to.
- * @param dx Absolute difference between points (horizontal distance).
- * @param dy Absolute difference between points, negated (vertical distance).
- * @param err Error value tracking when to move in each direction.
- * @param e2 Temporary variable used to decide whether to adjust x or y.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
  * @param k Iterator variable.
  * @param line_size Number of points on one line (columns).
  * @param lst_size Number of lines extracted (rows).
- * @param space Space between pixels on the initial draw.
- * @param sx Step direction for x.
- * @param sy Step direction for y.
  * @param x0 Variable for the Bresenham’s line algorithm.
  * @param y0 Variable for the Bresenham’s line algorithm.
- * @param m_width Width of the monitor.
- * @param m_height Height of the monitor.
  * @param img Allocated MLX image handle.
  * @param mlx The MLX instance handle.
  * @param p Original x, y, and z coordinates and color information.
@@ -91,7 +80,6 @@ typedef struct s_point
 typedef struct s_config
 {
 	char		*c;
-	char		**split;
 	double		center_x;
 	double		center_y;
 	double		x_min;
@@ -100,29 +88,37 @@ typedef struct s_config
 	double		y_min;
 	double		y_max;
 	double		y_temp;
-	int			comparison_size;
-	int			dx;
-	int			dy;
-	int			err;
-	int			e2;
 	int			fd;
 	int			i;
 	int			j;
 	int			k;
 	int			line_size;
 	int			lst_size;
-	int			space;
-	int			sx;
-	int			sy;
 	int			x0;
 	int			y0;
-	int32_t		m_width;
-	int32_t		m_height;
 	mlx_image_t	*img;
 	mlx_t		*mlx;
 	t_point		*p;
 	t_point		*pr;
 }	t_config;
+
+/** Variables used by Bresenham's line algorithm.
+ * @param dx Absolute difference between points (horizontal distance).
+ * @param dy Absolute difference between points, negated (vertical distance).
+ * @param err Error value tracking when to move in each direction.
+ * @param e2 Temporary variable used to decide whether to adjust x or y.
+ * @param sx Step direction for x.
+ * @param sy Step direction for y.
+ */
+typedef struct s_draw
+{
+	int	dx;
+	int	dy;
+	int	err;
+	int	e2;
+	int	sx;
+	int	sy;
+}	t_draw;
 
 /** Linked list struct storing the content of the map (one line per node).
  * @param content Line from the map file stored as a string.
