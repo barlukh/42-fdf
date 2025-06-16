@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 08:59:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 09:35:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,11 @@ int		ft_error_extract(char *line, t_list **lst, t_config *cfg, int flag);
  */
 int		ft_error_img(t_config *cfg);
 
-/**	Prints an error message according to mlx_errno.
+/**	Prints an error message according to the mlx_errno and frees memory.
+ * @param cfg Configuration and helper variables.
  * @return Errno.
  */
-int		ft_error_msg(void);
+int		ft_error_init(t_config *cfg);
 
 /**	Prints an error message according to the mlx_errno and frees memory.
  * @param cfg Configuration and helper variables.

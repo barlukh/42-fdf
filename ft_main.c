@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 08:54:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 09:00:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 09:47:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	main(int argc, char **argv)
 	t_config	cfg;
 
 	if (ft_parse(argc, argv, &cfg) == EXIT_FAILURE)
-		return (ft_error_msg());
+	{
+		ft_putstr(mlx_strerror(mlx_errno));
+		return (mlx_errno);
+	}
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	cfg.mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!cfg.mlx)
-		return (ft_error_msg());
+		return (ft_error_init(&cfg));
 	cfg.img = mlx_new_image(cfg.mlx, WIDTH, HEIGHT);
 	if (!cfg.img)
 		return (ft_error_img(&cfg));

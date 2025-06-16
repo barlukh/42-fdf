@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:34:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 08:54:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 09:40:35 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static int	ft_map_sort(t_list **lst, t_config *cfg)
 static int	ft_map_sort_matrix(char *point, t_config *cfg)
 {
 	char	**split;
-	
+
 	cfg->p[cfg->j].x = (cfg->j - (cfg->line_size / 2))
 		- (cfg->k * cfg->line_size);
 	cfg->p[cfg->j].y = cfg->k - (cfg->lst_size / 2);

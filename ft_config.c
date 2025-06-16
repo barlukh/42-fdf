@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 08:58:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 09:15:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_config_window(t_config *cfg)
 {
 	int32_t	m_width;
 	int32_t	m_height;
-	
+
 	mlx_get_monitor_size(0, &m_width, &m_height);
 	mlx_set_window_pos(cfg->mlx, (m_width - WIDTH) / 2,
 		(m_height - HEIGHT) / 1.2);
@@ -30,7 +30,7 @@ void	ft_config_window(t_config *cfg)
 int	ft_config_matrix(t_config *cfg, void (*f)(t_config *))
 {
 	int	space;
-	
+
 	ft_fill_screen(cfg);
 	f(cfg);
 	ft_bounding_min_max(cfg);
