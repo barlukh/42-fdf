@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 12:07:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:16:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 
 # define WIDTH 2000
 # define HEIGHT 2000
+
+# define TRUE 1
+# define FALSE 0
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -62,6 +65,7 @@ typedef struct s_point
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
+ * @param c_flag Color flag to indicate whether the map has default colors.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
@@ -86,6 +90,7 @@ typedef struct s_config
 	double		y_min;
 	double		y_max;
 	double		y_temp;
+	int			c_flag;
 	int			fd;
 	int			i;
 	int			j;
