@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 15:55:45 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 07:23:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,38 @@ typedef struct s_draw
 	int		c_end;
 	int		c_start;
 }	t_draw;
+
+/** Variables used for color interpolation.
+ * @param r Final red.
+ * @param r1 Starting red.
+ * @param r2 Ending red.
+ * @param g Final green.
+ * @param g1 Starting green.
+ * @param g2 Ending green.
+ * @param b Final blue.
+ * @param b1 Starting blue.
+ * @param b2 Ending blue.
+ * @param a Final alpha.
+ * @param a1 Starting alpha.
+ * @param a2 Ending alpha.
+ * @param graded_color Final color.
+ */
+typedef struct s_color
+{
+	uint32_t	r;
+	uint32_t	r1;
+	uint32_t	r2;
+	uint32_t	g;
+	uint32_t	g1;
+	uint32_t	g2;
+	uint32_t	b;
+	uint32_t	b1;
+	uint32_t	b2;
+	uint32_t	a;
+	uint32_t	a1;
+	uint32_t	a2;
+	uint32_t	graded_color;
+}	t_color;
 
 /** Linked list struct storing the content of the map (one line per node).
  * @param content Line from the map file stored as a string.
