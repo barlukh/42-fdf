@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 11:06:58 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 12:08:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 10:29:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ void	ft_key_hook(mlx_key_data_t k, void *param)
 	t_config	*cfg;
 
 	cfg = param;
-	if (k.key == MLX_KEY_I && (k.action == MLX_PRESS || k.action == MLX_REPEAT))
+	if (k.key == MLX_KEY_UP && (k.action == MLX_PRESS || k.action == 2))
 		ft_scaling_in(cfg);
-	else if (k.key == MLX_KEY_K && (k.action == MLX_PRESS
-			|| k.action == MLX_REPEAT))
+	else if (k.key == MLX_KEY_DOWN && (k.action == MLX_PRESS || k.action == 2))
 		ft_scaling_out(cfg);
-	else if ((k.key == MLX_KEY_A && (k.action == MLX_PRESS
-				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_D
-			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT))
-		|| (k.key == MLX_KEY_W && (k.action == MLX_PRESS
-				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_S
-			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT)))
+	else if ((k.key == MLX_KEY_A && (k.action == MLX_PRESS || k.action == 2))
+		|| (k.key == MLX_KEY_D && (k.action == MLX_PRESS || k.action == 2))
+		|| (k.key == MLX_KEY_W && (k.action == MLX_PRESS || k.action == 2))
+		|| (k.key == MLX_KEY_S && (k.action == MLX_PRESS || k.action == 2)))
 		ft_translation(cfg, k);
-	else if ((k.key == MLX_KEY_J && (k.action == MLX_PRESS
-				|| k.action == MLX_REPEAT)) || (k.key == MLX_KEY_L
-			&& (k.action == MLX_PRESS || k.action == MLX_REPEAT)))
+	else if ((k.key == MLX_KEY_LEFT && (k.action == MLX_PRESS || k.action == 2))
+		|| (k.key == MLX_KEY_RIGHT && (k.action == MLX_PRESS || k.action == 2)))
 		ft_rotation(cfg, k);
 	else if (k.key == MLX_KEY_C && (k.action == MLX_PRESS))
 		ft_config_matrix(cfg, ft_projection_isometric);
 	else if (k.key == MLX_KEY_V && (k.action == MLX_PRESS))
 		ft_config_matrix(cfg, ft_projection_trimetric);
+	else if (k.key == MLX_KEY_N && (k.action == MLX_PRESS || k.action == 2))
+		ft_config_matrix(cfg, ft_projection_height_low);
+	else if (k.key == MLX_KEY_M && (k.action == MLX_PRESS || k.action == 2))
+		ft_config_matrix(cfg, ft_projection_height_high);
 	else if (k.key == MLX_KEY_ESCAPE && k.action == MLX_PRESS)
 		mlx_close_window(cfg->mlx);
 }
@@ -129,7 +129,7 @@ static void	ft_rotation(t_config *cfg, mlx_key_data_t keydata)
 
 	ft_count_centroid(cfg, &c_x, &c_y);
 	ft_fill_screen(cfg);
-	if (keydata.key == MLX_KEY_L)
+	if (keydata.key == MLX_KEY_RIGHT)
 		angle = ROTATION_RIGHT;
 	else
 		angle = ROTATION_LEFT;

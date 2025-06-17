@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 17:29:07 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 11:09:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 10:37:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,38 @@ void	ft_count_centroid(t_config *cfg, double *c_x, double *c_y)
 	}
 	*c_x = cfg->x_temp / (cfg->line_size * cfg->lst_size);
 	*c_y = cfg->y_temp / (cfg->line_size * cfg->lst_size);
+}
+
+void	ft_projection_height_low(t_config *cfg)
+{
+	if (cfg->height_factor < 10)
+		cfg->height_factor += 0.1;
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		cfg->pr[cfg->i] = cfg->p[cfg->i];
+		cfg->x_temp = cfg->pr[cfg->i].x;
+		cfg->y_temp = cfg->pr[cfg->i].y;
+		cfg->pr[cfg->i].x = (cfg->x_temp - cfg->y_temp) / sqrt(2);
+		cfg->pr[cfg->i].y = (cfg->x_temp + cfg->y_temp - 2
+				* (cfg->pr[cfg->i].z / cfg->height_factor)) / sqrt(6);
+		cfg->i++;
+	}
+}
+
+void	ft_projection_height_high(t_config *cfg)
+{
+	if (cfg->height_factor > 0.8)
+		cfg->height_factor -= 0.1;
+	cfg->i = 0;
+	while (cfg->i < (cfg->line_size * cfg->lst_size))
+	{
+		cfg->pr[cfg->i] = cfg->p[cfg->i];
+		cfg->x_temp = cfg->pr[cfg->i].x;
+		cfg->y_temp = cfg->pr[cfg->i].y;
+		cfg->pr[cfg->i].x = (cfg->x_temp - cfg->y_temp) / sqrt(2);
+		cfg->pr[cfg->i].y = (cfg->x_temp + cfg->y_temp - 2
+				* (cfg->pr[cfg->i].z / cfg->height_factor)) / sqrt(6);
+		cfg->i++;
+	}
 }

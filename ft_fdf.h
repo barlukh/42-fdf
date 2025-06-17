@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/17 09:00:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 10:20:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_point
  * @param c Helper variable for argument validation.
  * @param center_x Center point of the window on the x-axis.
  * @param center_y Center point of the window on the y-axis.
+ * @param height_factor Tracks the factor for the z-axis scaling.
  * @param x_min Minimum x value for a bounding box.
  * @param x_max Maximum x value for a bounding box.
  * @param x_temp Temporary variable for storing x value.
@@ -84,6 +85,7 @@ typedef struct s_config
 	char		*c;
 	double		center_x;
 	double		center_y;
+	double		height_factor;
 	double		x_min;
 	double		x_max;
 	double		x_temp;

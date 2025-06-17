@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 15:15:21 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 13:30:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 10:23:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_config_window(t_config *cfg)
 	mlx_set_window_limit(cfg->mlx, HEIGHT / 4, WIDTH / 4, HEIGHT, WIDTH);
 	cfg->center_x = WIDTH / 2;
 	cfg->center_y = HEIGHT / 2;
+	cfg->height_factor = 1;
 }
 
 int	ft_config_matrix(t_config *cfg, void (*f)(t_config *))

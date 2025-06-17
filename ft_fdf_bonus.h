@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/17 09:00:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 10:27:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_point
  * @param c Helper variable for argument validation.
  * @param center_x Center point of the window on the x-axis.
  * @param center_y Center point of the window on the y-axis.
+ * @param height_factor Tracks the factor for the z-axis scaling.
  * @param x_min Minimum x value for a bounding box.
  * @param x_max Maximum x value for a bounding box.
  * @param x_temp Temporary variable for storing x value.
@@ -86,6 +87,7 @@ typedef struct s_config
 	char		*c;
 	double		center_x;
 	double		center_y;
+	double		height_factor;
 	double		x_min;
 	double		x_max;
 	double		x_temp;
@@ -144,6 +146,18 @@ void	ft_fill_screen(t_config *cfg);
  * @return None.
  */
 void	ft_key_hook(mlx_key_data_t k, void *param);
+
+/** Decreases the height (z-axis) of an object.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_height_low(t_config *cfg);
+
+/** Increases the height (z-axis) of an object.
+ * @param cfg Configuration and helper variables.
+ * @return None.
+ */
+void	ft_projection_height_high(t_config *cfg);
 
 /** Converts coordinates into isometric projection.
  * @param cfg Configuration and helper variables.
