@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/17 07:23:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 09:00:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 
 # define WIDTH 2000
 # define HEIGHT 2000
+
+# define TRUE 1
+# define FALSE 0
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -62,6 +65,7 @@ typedef struct s_point
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
+ * @param c_flag Flag to indicate if object is fully colored.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
@@ -86,6 +90,7 @@ typedef struct s_config
 	double		y_min;
 	double		y_max;
 	double		y_temp;
+	int			c_flag;
 	int			fd;
 	int			i;
 	int			j;
@@ -127,6 +132,17 @@ typedef struct s_draw
 }	t_draw;
 
 /** Variables used for color interpolation.
+ * @param gamma Gamma correction.
+ * @param inv_gamma Iverted gamma.
+ * @param r_interp Interpolated r.
+ * @param r1_gamma Gamma corrected r1.
+ * @param r2_gamma Gamma corrected r2.
+ * @param g_interp Interpolated g.
+ * @param g1_gamma Gamma corrected g1.
+ * @param g2_gamma Gamma corrected g2.
+ * @param b_interp Interpolated b.
+ * @param b1_gamma Gamma corrected b1.
+ * @param b2_gamma Gamma corrected b2.
  * @param r Final red.
  * @param r1 Starting red.
  * @param r2 Ending red.
@@ -143,6 +159,17 @@ typedef struct s_draw
  */
 typedef struct s_color
 {
+	float		gamma;
+	float		inv_gamma;
+	float		r_interp;
+	float		r1_gamma;
+	float		r2_gamma;
+	float		g_interp;
+	float		g1_gamma;
+	float		g2_gamma;
+	float		b_interp;
+	float		b1_gamma;
+	float		b2_gamma;
 	uint32_t	r;
 	uint32_t	r1;
 	uint32_t	r2;

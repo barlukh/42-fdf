@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 08:23:13 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/16 15:54:35 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 09:00:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_point
  * @param y_min Minimum y value for a bounding box.
  * @param y_max Maximum y value for a bounding box.
  * @param y_temp Temporary variable for storing y value.
+ * @param c_flag Flag to indicate if object is fully colored.
  * @param fd File descriptor.
  * @param i Iterator variable.
  * @param j Iterator variable.
@@ -91,6 +92,7 @@ typedef struct s_config
 	double		y_min;
 	double		y_max;
 	double		y_temp;
+	int			c_flag;
 	int			fd;
 	int			i;
 	int			j;
