@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 17:29:07 by bgazur            #+#    #+#             */
-/*   Updated: 2025/06/17 10:37:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/17 11:34:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_projection_height_low(t_config *cfg)
 
 void	ft_projection_height_high(t_config *cfg)
 {
-	if (cfg->height_factor > 0.8)
+	if (cfg->height_factor > 1)
 		cfg->height_factor -= 0.1;
 	cfg->i = 0;
 	while (cfg->i < (cfg->line_size * cfg->lst_size))
